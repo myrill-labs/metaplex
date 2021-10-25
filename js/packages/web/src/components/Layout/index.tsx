@@ -21,13 +21,13 @@ export const AppLayout = React.memo((props: any) => {
           <Content
             style={{
               overflow: 'scroll',
-              padding: '30px 48px ',
+              padding: '0px 48px ',
             }}
           >
             {props.children}
           </Content>
         </Layout>
-        {/*<Footer />*/}
+        <Footer />
       </Layout>
     </>
   );
