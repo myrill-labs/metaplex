@@ -143,7 +143,7 @@ export const AuctionListView = () => {
   return (
     <>
       <Banner
-        src={'/myrill-main-banner.png'}
+        src={'myrmidons.gif'}
         srcGIF={'myrmidons.gif'}
         headingText={'The amazing world of Myrill.'}
         subHeadingText={'Buy exclusive Myrill NFTs.'}
