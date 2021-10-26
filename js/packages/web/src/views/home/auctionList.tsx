@@ -13,6 +13,8 @@ import { CardLoader } from '../../components/MyLoader';
 import { useMeta } from '../../contexts';
 import { Banner } from '../../components/Banner';
 
+import { Particles } from 'react-particles-js';
+
 const { TabPane } = Tabs;
 
 const { Content } = Layout;
@@ -145,7 +147,7 @@ export const AuctionListView = () => {
         headingText={'The amazing world of Myrill.'}
         subHeadingText={'Buy exclusive Myrill NFTs.'}
         actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}
-        useBannerBg={true}
+        useBannerBg={false}
       />
       <Layout>
         <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
