@@ -42,7 +42,13 @@ export const Banner = (props: {
           {props.actionComponent}
         </div>
       </div>
-      <img src={`${props.srcGIF}`} alt="this slowpoke moves" width="128"/>
+
+      <img src={`${props.srcGIF}`}
+           alt="Myrmidons GIF"
+           width="256"
+           style={{imageRendering: "pixelated"}}
+      />
+
       <div
         id={'current-banner'}
         style={{ backgroundImage: `url(${props.src})` }}
