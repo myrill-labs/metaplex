@@ -144,6 +144,7 @@ export const AuctionListView = () => {
     <>
       <Banner
         src={'/myrill-main-banner.png'}
+        srcGIF={'myrmidons.gif'}
         headingText={'The amazing world of Myrill.'}
         subHeadingText={'Buy exclusive Myrill NFTs.'}
         actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}

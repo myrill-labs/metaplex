@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 export const Banner = (props: {
   src: string;
+  srcGIF: string;
   useBannerBg: boolean;
   headingText: string;
   subHeadingText: string;
@@ -41,6 +42,7 @@ export const Banner = (props: {
           {props.actionComponent}
         </div>
       </div>
+      <img src={`${props.srcGIF}`} alt="this slowpoke moves" width="128"/>
       <div
         id={'current-banner'}
         style={{ backgroundImage: `url(${props.src})` }}
