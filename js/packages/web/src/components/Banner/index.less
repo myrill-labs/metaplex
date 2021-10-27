@@ -26,11 +26,19 @@
   background-color: @black-100;
   background-position: top right;
   background-repeat: no-repeat;
+   display: flex;
+  align-items: center;
+  justify-content: center;
 
   position: relative;
   @media (max-width: @screen-sm-min){
     display: none;
   }
+
+  #current-banner-gif{
+    z-index: 11;
+  }
+
   #gradient-banner {
     position: absolute;
     height: 100%;
