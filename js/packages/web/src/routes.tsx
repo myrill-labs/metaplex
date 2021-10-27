@@ -34,7 +34,7 @@ export function Routes() {
             />
             <Route
               exact
-              path="/artworks/:id?"
+              path="/myrmidons/:id?"
               component={() => <ArtworksView />}
             />
             <Route exact path="/art/:id" component={() => <ArtView />} />

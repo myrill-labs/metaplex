@@ -186,8 +186,8 @@ export const StaticPage = (props: {
           <img
             src={props.headContent.bannerImage}
             className="header-image"
-            width="880px"
-            height="620px"
+            width="480px"
+            height="480px"
             alt={`${props.headContent.title} image`}
           />
         </Col>
@@ -237,8 +237,8 @@ export const StaticPage = (props: {
             <img
               src={section.image}
               className="image"
-              width="720px"
-              height="450px"
+              width="480px"
+              height="480px"
               alt={`${section.title} image`}
             />
           )}

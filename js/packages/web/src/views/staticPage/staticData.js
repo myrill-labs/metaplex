@@ -1,20 +1,20 @@
 export const data = {
   headContent: {
-    title: 'We are Metaplex',
+    title: 'We are Myrmidon',
     subtitle: 'About Us',
-    bannerImage: '/main-banner.png',
+    bannerImage: '/myrill-logo.svg',
   },
   leftContent: undefined,
   midContent: {
     sections: [
       {
-        title: 'Metaplex is a protocol built on top of Solana that allows:',
+        title: 'Myrill is a trading platform built by developers for developers :',
         paragraphs: [
-          '• Creating/Minting non-fungible tokens;',
-          '• Starting a variety of auctions for primary/secondary sales;',
-          '• and Visualizing NFTs in a standard way across wallets and applications.',
+          '• Design trading bot based on reinforcement learning ;',
+          '• Learn and Deploy your bot ;',
+          '• and Sell it with the community.',
         ],
-        image: '/main-banner.png',
+        image: '/myrill-logo.svg',
       },
     ],
   },

@@ -52,7 +52,7 @@ export const ArtistView = () => {
             <div className="info-header">ABOUT THE CREATOR</div>
             <div className="info-content">{creator?.info.description}</div>
             <br />
-            <div className="info-header">Art Created</div>
+            <div className="info-header">Myrmidon Created</div>
             {artworkGrid}
           </Col>
         </Row>
