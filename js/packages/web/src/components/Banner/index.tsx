@@ -47,12 +47,6 @@ export const Banner = (props: {
         id={'current-banner'}
         style={{backgroundImage: `url(${props.src})`, imageRendering: "pixelated"}}
       >
-        <img src={`${props.srcGIF}`}
-             alt="Myrmidons GIF"
-             width="256"
-             id={'current-banner-gif'}
-             style={{imageRendering: "pixelated"}}
-        />
         <span id={'gradient-banner'}></span>
         <div id="banner-inner">
           <div id={'message-container'}>
