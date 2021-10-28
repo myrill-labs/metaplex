@@ -4,16 +4,16 @@ export const footerConf = {
     {
       links: [
         {
-          label: 'Instagram',
-          url: 'www.solana.com',
+          label: 'Linkedin',
+          url: 'https://www.linkedin.com/company/myrill',
         },
         {
           label: 'Twitter',
-          url: 'www.solana.com',
+          url: 'https://twitter.com/myrill_io',
         },
         {
           label: 'Discord',
-          url: 'www.solana.com',
+          url: 'https://discord.com',
         },
       ],
     },
