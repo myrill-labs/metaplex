@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 export const Banner = (props: {
   src: string;
@@ -35,7 +35,7 @@ export const Banner = (props: {
   return (
     <>
       <div id="mobile-banner">
-        <img className="banner-img" src={props.src} />
+        <img className="banner-img" src={props.src}/>
         <div className="banner-content">
           <div id={'main-heading'}>{props.headingText}</div>
           <div id={'sub-heading'}>{props.subHeadingText}</div>
@@ -43,15 +43,9 @@ export const Banner = (props: {
         </div>
       </div>
 
-      <img src={`${props.srcGIF}`}
-           alt="Myrmidons GIF"
-           width="256"
-           style={{imageRendering: "pixelated"}}
-      />
-
       <div
         id={'current-banner'}
-        style={{ backgroundImage: `url(${props.src})` }}
+        style={{backgroundImage: `url(${props.src})`, imageRendering: "pixelated"}}
       >
         <span id={'gradient-banner'}></span>
         <div id="banner-inner">
@@ -61,11 +55,6 @@ export const Banner = (props: {
             {props.actionComponent}
           </div>
           {props.children}
-          <div className="powered-by">
-            <span>
-              POWERED BY <b>Myrill</b>
-            </span>
-          </div>
         </div>
       </div>
     </>

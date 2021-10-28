@@ -21,12 +21,6 @@ export function Routes() {
       <HashRouter basename={'/'}>
         <Providers>
           <Switch>
-            <Route exact path="/admin" component={() => <AdminView />} />
-            <Route
-              exact
-              path="/analytics"
-              component={() => <AnalyticsView />}
-            />
             <Route
               exact
               path="/art/create/:step_param?"
@@ -34,7 +28,7 @@ export function Routes() {
             />
             <Route
               exact
-              path="/artworks/:id?"
+              path="/myrmidons/:id?"
               component={() => <ArtworksView />}
             />
             <Route exact path="/art/:id" component={() => <ArtView />} />
@@ -55,7 +49,6 @@ export function Routes() {
               path="/auction/:id/billing"
               component={() => <BillingView />}
             />
-            <Route path="/about" component={() => <StaticPageView />} />
             <Route path="/" component={() => <HomeView />} />
           </Switch>
         </Providers>
