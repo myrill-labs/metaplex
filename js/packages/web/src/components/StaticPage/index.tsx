@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Divider, Row } from 'antd';
+import React, {Fragment, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Col, Divider, Row} from 'antd';
 import BN from 'bn.js';
 
 import Masonry from 'react-masonry-css';
-import { CardLoader } from '../MyLoader';
-import { useMeta } from '../../contexts';
-import { AuctionRenderCard } from '../AuctionRenderCard';
-import { AuctionViewState, useAuctions } from '../../hooks';
+import {CardLoader} from '../MyLoader';
+import {useMeta} from '../../contexts';
+import {AuctionRenderCard} from '../AuctionRenderCard';
+import {AuctionViewState, useAuctions} from '../../hooks';
+import Markdown from 'react-markdown';
 
 interface Connect {
   label: string;
@@ -91,7 +92,7 @@ export const StaticPage = (props: {
     return () => window.removeEventListener('resize', handleResize);
   });
   const auctions = useAuctions(AuctionViewState.Live);
-  const { isLoading } = useMeta();
+  const {isLoading} = useMeta();
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -114,14 +115,14 @@ export const StaticPage = (props: {
     >
       {!isLoading
         ? liveAuctions.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
 
@@ -165,7 +166,7 @@ export const StaticPage = (props: {
       <Row>
         <Col span={24} xl={8} className="header-left">
           <p className="header-subtitle">{props.headContent.subtitle}</p>
-          <Divider />
+          <Divider/>
           <p className="header-title">{props.headContent.title}</p>
 
           {props.headContent.author && (
@@ -224,6 +225,7 @@ export const StaticPage = (props: {
       </div>
     </section>
   );
+  const md = `# Your markdown here \n <h1>This won't be translated into HTML</h1>`
   const middleSection = (
     <section id="middle-container">
       {props.midContent.sections.map((section, i) => (
@@ -232,7 +234,10 @@ export const StaticPage = (props: {
           {section.paragraphs?.map(paragraph => (
             <p className="paragraph-text">{paragraph}</p>
           ))}
-
+          <Markdown
+            escapeHtml={true}
+            source={md}
+          />
           {section.image && (
             <img
               src={section.image}
