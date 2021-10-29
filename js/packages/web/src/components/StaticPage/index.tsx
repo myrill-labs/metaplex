@@ -8,7 +8,7 @@ import {CardLoader} from '../MyLoader';
 import {useMeta} from '../../contexts';
 import {AuctionRenderCard} from '../AuctionRenderCard';
 import {AuctionViewState, useAuctions} from '../../hooks';
-import Markdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 
 interface Connect {
   label: string;
@@ -225,7 +225,8 @@ export const StaticPage = (props: {
       </div>
     </section>
   );
-  const md = `# Your markdown here \n <h1>This won't be translated into HTML</h1>`
+  // const md = `# Your markdown here \n <h1>This won't be translated into HTML</h1>`
+
   const middleSection = (
     <section id="middle-container">
       {props.midContent.sections.map((section, i) => (
@@ -234,10 +235,6 @@ export const StaticPage = (props: {
           {section.paragraphs?.map(paragraph => (
             <p className="paragraph-text">{paragraph}</p>
           ))}
-          <Markdown
-            escapeHtml={true}
-            source={md}
-          />
           {section.image && (
             <img
               src={section.image}
@@ -267,7 +264,20 @@ export const StaticPage = (props: {
       {liveAuctionsView}
     </section>
   );
+  const markdown = `
+    # Header 1
+    ## Header 2
 
+    _ italic _
+
+    ** bold **
+
+    <b> bold Html </b>
+    `;
+
+  <div>
+    <ReactMarkdown source={markdown}/>
+  </div>
   return (
     <Fragment>
       {headerSection}
@@ -277,6 +287,7 @@ export const StaticPage = (props: {
         </Col>
         <Col xs={24} md={16}>
           {middleSection}
+
         </Col>
         <Col xs={24} md={4}>
           {rightSection}
