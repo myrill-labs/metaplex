@@ -4,6 +4,7 @@ export const data = {
   },
   leftContent: undefined,
   midContent: {
+    markdown: '`Just tx a link: https://reactjs.com.`',
     sections: [
       {
         title: 'Get ready to fight back!',
