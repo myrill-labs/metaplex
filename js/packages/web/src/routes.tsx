@@ -1,5 +1,5 @@
-import { HashRouter, Route, Switch } from 'react-router-dom';
-import { Providers } from './providers';
+import {HashRouter, Route, Switch} from 'react-router-dom';
+import {Providers} from './providers';
 import {
   AnalyticsView,
   ArtCreateView,
@@ -12,8 +12,8 @@ import {
   HomeView,
   StaticPageView,
 } from './views';
-import { AdminView } from './views/admin';
-import { BillingView } from './views/auction/billing';
+import {AdminView} from './views/admin';
+import {BillingView} from './views/auction/billing';
 
 export function Routes() {
   return (
@@ -24,32 +24,33 @@ export function Routes() {
             <Route
               exact
               path="/art/create/:step_param?"
-              component={() => <ArtCreateView />}
+              component={() => <ArtCreateView/>}
             />
             <Route
               exact
               path="/myrmidons/:id?"
-              component={() => <ArtworksView />}
+              component={() => <ArtworksView/>}
             />
-            <Route exact path="/art/:id" component={() => <ArtView />} />
-            <Route exact path="/artists/:id" component={() => <ArtistView />} />
-            <Route exact path="/artists" component={() => <ArtistsView />} />
+            <Route exact path="/art/:id" component={() => <ArtView/>}/>
+            <Route exact path="/artists/:id" component={() => <ArtistView/>}/>
+            <Route exact path="/artists" component={() => <ArtistsView/>}/>
             <Route
               exact
               path="/auction/create/:step_param?"
-              component={() => <AuctionCreateView />}
+              component={() => <AuctionCreateView/>}
             />
             <Route
               exact
               path="/auction/:id"
-              component={() => <AuctionView />}
+              component={() => <AuctionView/>}
             />
             <Route
               exact
               path="/auction/:id/billing"
-              component={() => <BillingView />}
+              component={() => <BillingView/>}
             />
-            <Route path="/" component={() => <HomeView />} />
+            <Route path="/about" component={() => <StaticPageView/>}/>
+            <Route path="/" component={() => <HomeView/>}/>
           </Switch>
         </Providers>
       </HashRouter>

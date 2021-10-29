@@ -13,8 +13,12 @@ export const footerConf = {
         },
         {
           label: 'Discord',
-          url: 'https://discord.com',
+          url: 'https://discord.com/invite/t2bwmKT8',
         },
+        {
+          label: 'Instagram',
+          url: 'https://www.instagram.com/myrill.io/',
+        }
       ],
     },
   ],

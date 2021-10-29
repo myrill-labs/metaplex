@@ -261,7 +261,7 @@ export const AuctionView = () => {
     return (
       <Row justify="center" ref={ref} gutter={[48, 0]}>
         <Col span={24} md={10} className={'img-cont-500'}>
-          <div className="auction-view" style={{ minHeight: 300 }}>
+          <div className="auction-view" style={{ minHeight: 300, overflow: 'hidden !important'  }}>
             <Carousel
               autoplay={false}
               afterChange={index => setCurrentIndex(index)}
@@ -382,6 +382,13 @@ export const AuctionView = () => {
     );
   }
 };
+
+
+
+
+
+
+
 
 const BidLine = (props: {
   bid: any;
