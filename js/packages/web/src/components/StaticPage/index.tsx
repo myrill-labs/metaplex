@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Col, Divider, Row} from 'antd';
+import {Button, Col, Divider, Row} from 'antd';
 import BN from 'bn.js';
 
 import Masonry from 'react-masonry-css';
@@ -165,33 +165,8 @@ export const StaticPage = (props: {
     <section id="header-container">
       {/*<span id="header-gradient"></span>*/}
       <Row>
-        <Col span={24} xl={8} className="header-left">
-          <p className="header-subtitle">{props.headContent.subtitle}</p>
-          <Divider/>
-          <p className="header-title">{props.headContent.title}</p>
-
-          {props.headContent.author && (
-            <div className="author-container">
-              <img
-                src={props.headContent.author.avatar}
-                className="author-avatar"
-                width="32px"
-                height="32px"
-                alt="author image"
-              />
-              <p className="author-name">{props.headContent.author.name}</p>
-            </div>
-          )}
-        </Col>
-
-        <Col xl={16} span={24} className="header-right">
-          <img
-            src={props.headContent.bannerImage}
-            className="header-image"
-            width="480px"
-            height="480px"
-            alt={`${props.headContent.title} image`}
-          />
+        <Col className="header-middle">
+            <Button> Get the white paper!</Button>
         </Col>
       </Row>
     </section>
@@ -226,36 +201,6 @@ export const StaticPage = (props: {
       </div>
     </section>
   );
-  const middleSection = (
-    <section id="middle-container">
-      {props.midContent.sections.map((section, i) => (
-        <div key={i} className="mid-section-item">
-          {section.title && <span className="mid-title">{section.title}</span>}
-          {section.paragraphs?.map(paragraph => (
-            <p className="paragraph-text">{paragraph}</p>
-          ))}
-          {section.image && (
-            <img
-              src={section.image}
-              className="image"
-              width="480px"
-              height="480px"
-              alt={`${section.title} image`}
-            />
-          )}
-
-          {section.caption && (
-            <p className="image-caption">
-              {section.caption.text}
-              <a href={section.caption.linkUrl} target="_blank">
-                {section.caption.linkText}
-              </a>
-            </p>
-          )}
-        </div>
-      ))}
-    </section>
-  );
   const rightSection = <section id="right-container"></section>;
   const finalSection = (
     <section id="bottom-container">
@@ -275,8 +220,8 @@ export const StaticPage = (props: {
           {leftSection}
         </Col>
         <Col xs={24} md={16}>
-          <div>
-            <ReactMarkdown children={markdown}/>
+          <div className="middle-background" >
+            <ReactMarkdown className="paragraph-text"  children={markdown}/>
           </div>
         </Col>
         <Col xs={24} md={4}>
