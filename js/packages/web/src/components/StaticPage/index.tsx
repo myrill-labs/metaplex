@@ -45,6 +45,7 @@ interface ArticleSection {
 
 interface MidContent {
   sections: ArticleSection[];
+  markdown: string;
 }
 
 interface LeftContent {
@@ -225,8 +226,6 @@ export const StaticPage = (props: {
       </div>
     </section>
   );
-  // const md = `# Your markdown here \n <h1>This won't be translated into HTML</h1>`
-
   const middleSection = (
     <section id="middle-container">
       {props.midContent.sections.map((section, i) => (
@@ -264,20 +263,10 @@ export const StaticPage = (props: {
       {liveAuctionsView}
     </section>
   );
-  const markdown = `
-    # Header 1
-    ## Header 2
 
-    _ italic _
+  const markdown = props.midContent.markdown;
 
-    ** bold **
 
-    <b> bold Html </b>
-    `;
-
-  <div>
-    <ReactMarkdown source={markdown}/>
-  </div>
   return (
     <Fragment>
       {headerSection}
@@ -286,8 +275,9 @@ export const StaticPage = (props: {
           {leftSection}
         </Col>
         <Col xs={24} md={16}>
-          {middleSection}
-
+          <div>
+            <ReactMarkdown children={markdown}/>
+          </div>
         </Col>
         <Col xs={24} md={4}>
           {rightSection}
