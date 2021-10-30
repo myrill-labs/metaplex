@@ -23,7 +23,7 @@ Each myrmidon has a unique investor profile. It is constructed following several
 
 ### Release roadmap
 
-From late October 2021 to January 2022, we will run auctions for ten myrmidons each week. An auction lasts for one week. All myrmidons can be resold on the Myrill marketplace.
+Starting the **1st of December 2021**, we will run auctions for ten myrmidons each week. An auction lasts for one week. All myrmidons can be resold on the Myrill marketplace.
 
 Myrmidon#1 will be the first to be available for live trading in June 2022, then others will be release each month from June 2022 to May 2023.
 
