@@ -12,5 +12,5 @@ echo "Building 'web'..."
 CI=false && yarn build
 
 echo "pushing build folder to remote myrmidons folder ..."
-scp -r build/* ncarrara@myrill.io:/home/ncarrara/myrill/lendingpage/public/myrmidons
+scp -r packages/fair-launch/build/* ncarrara@myrill.io:/home/ncarrara/myrill/lendingpage/public/myrmidons
 echo "done"
