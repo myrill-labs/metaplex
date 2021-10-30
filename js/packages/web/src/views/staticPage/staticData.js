@@ -13,7 +13,7 @@ export const data = {
       "- early access to the no-code Myrill's platform.\n" +
       "- access to the restricted slack with direct support from machine learning engineers, quants and traders. Note that a public discord is available at [this url](https://myrill.io/discord-link).\n" +
       "\n" +
-      "### Myrmidon uniqueness\n" +
+      "## Myrmidon uniqueness\n" +
       "\n" +
       "Each myrmidon has a unique investor profile. It is constructed following several parameters:\n" +
       "- instruments: on which instruments the bot is trading. It can be a combination of pairs listed on exchanges, or even not listed (for DEX trading).\n" +
@@ -27,7 +27,7 @@ export const data = {
       "- asset-types: including [spot](https://www.investopedia.com/terms/s/spotmarket.asp) or [future](https://www.investopedia.com/terms/f/futures.asp). Using both can lead to arbitrage opportunities.\n" +
       "- frequency: the trading frequency of the bot. It can be seconds, minutes, hours or days. It can reach down to 500ms.\n" +
       "\n" +
-      "### Release roadmap\n" +
+      "## Release roadmap\n" +
       "\n" +
       "From 1st December 2021 to February 2022, we will run auctions for ten myrmidons each week. An auction lasts for one week. All myrmidons can be resold on the Myrill marketplace.\n" +
       "\n" +

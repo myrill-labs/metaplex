@@ -166,7 +166,12 @@ export const StaticPage = (props: {
       {/*<span id="header-gradient"></span>*/}
       <Row>
         <Col className="header-middle">
-            <Button> Get the white paper!</Button>
+
+          <a href="https://myrill-labs.github.io/whitepaper/">
+            <input type="button" value="Get the white paper" className="gradient-btn" style={{fontSize:'24px', fontWeight:100}}/>
+          </a>
+
+
         </Col>
       </Row>
     </section>
@@ -204,8 +209,8 @@ export const StaticPage = (props: {
   const rightSection = <section id="right-container"></section>;
   const finalSection = (
     <section id="bottom-container">
-      <p className="bottom-title">Shop the Collection</p>
-      {liveAuctionsView}
+      {/*<p className="bottom-title">Shop the Collection</p>*/}
+      {/*{liveAuctionsView}*/}
     </section>
   );
 
@@ -220,8 +225,8 @@ export const StaticPage = (props: {
           {leftSection}
         </Col>
         <Col xs={24} md={16}>
-          <div className="middle-background" >
-            <ReactMarkdown className="paragraph-text"  children={markdown}/>
+          <div className="middle-background">
+            <ReactMarkdown className="paragraph-text" children={markdown}/>
           </div>
         </Col>
         <Col xs={24} md={4}>

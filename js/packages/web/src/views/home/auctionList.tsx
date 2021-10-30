@@ -143,8 +143,8 @@ export const AuctionListView = () => {
     <>
       <Banner
         src={'/myrill-main-banner.png'}
-        headingText={'The amazing world of Myrill.'}
-        subHeadingText={'Buy exclusive Myrill NFTs.'}
+        headingText={'Myrill\'s Marketplace'}
+        subHeadingText={'Buy exclusive Myrill\'s NFTs: the Myrmidons.'}
         actionComponent={<HowToBuyModal buttonClassName="secondary-btn"/>}
         useBannerBg={false}
       />
@@ -152,40 +152,16 @@ export const AuctionListView = () => {
         <Content style={{display: 'flex', flexWrap: 'wrap'}}>
           <Col style={{width: '100%', marginTop: 32}}>
             <Row style={{justifyContent: 'center'}}>
-              <div style={{fontSize: '54px'}}>Coming Soon
+              <div style={{font: '54px arial'}}>
+                Coming Soon
               </div>
-              <form action="https://myrill.io/submit-email" method="post">
-                <input type="email" style={{
-                  height: 'auto',
-                  width: '49%',
-                  background: '#031b69',
-                  borderRadius: '5px',
-                  border: 'none',
-                  padding: '10px'
 
-                }}
-                       className="email-form-email"
-                       placeholder="Email Address" name="email" required/>
-                <input type="submit" value="Get Notified" className="gradient-btn"
-                       style={{
-                         height: 'auto',
-                         width: '49%',
-                         display: 'inline-block',
-                          color: '#fff',
-                          textTransform: 'uppercase',
-                          fontWeight: 700,
-                          /*color: -webkit-linear-gradient(right, #fe998b, #fa768d, #f78ca0),*/
-                          transition: 'all 0.3s cubic-bezier(.25, .8, .25, 1)',
-                          padding: '10px 15px',
-                          borderRadius: '5px',
-                          border: 'None',
-                          position: 'relative',
-                          zIndex: 2,
-                          textAlign: 'center',
-                          cursor: 'pointer',
-                          /*background-image: linear-gradient(to right, #DD5E89 0%, #F7BB97 100%, #DD5E89 0%)*/
-                          backgroundColor: '#ffaaaa2e'
-                       }}/>
+            </Row>
+            <div style={{margin:30}}/>
+            <Row style={{justifyContent: 'center'}}>
+              <form action="https://myrill.io/submit-email" method="post">
+                <input type="email" className="email-form-email" placeholder="Email Address" name="email" required/>
+                <input type="submit" value="Get Notified" className="gradient-btn"/>
               </form>
             </Row>
           </Col>
