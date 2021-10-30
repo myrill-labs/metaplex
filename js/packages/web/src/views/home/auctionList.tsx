@@ -1,22 +1,22 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { Col, Layout, Row, Tabs } from 'antd';
+import {useWallet} from '@solana/wallet-adapter-react';
+import {Col, Layout, Row, Tabs} from 'antd';
 import BN from 'bn.js';
-import React, { useState, useMemo } from 'react';
+import React, {useState, useMemo} from 'react';
 import Masonry from 'react-masonry-css';
-import { HowToBuyModal } from '../../components/HowToBuyModal';
+import {HowToBuyModal} from '../../components/HowToBuyModal';
 
-import { AuctionViewState, useAuctions, AuctionView } from '../../hooks';
+import {AuctionViewState, useAuctions, AuctionView} from '../../hooks';
 
-import { AuctionRenderCard } from '../../components/AuctionRenderCard';
-import { Link } from 'react-router-dom';
-import { CardLoader } from '../../components/MyLoader';
-import { useMeta } from '../../contexts';
-import { Banner } from '../../components/Banner';
+import {AuctionRenderCard} from '../../components/AuctionRenderCard';
+import {Link} from 'react-router-dom';
+import {CardLoader} from '../../components/MyLoader';
+import {useMeta} from '../../contexts';
+import {Banner} from '../../components/Banner';
 
 
-const { TabPane } = Tabs;
+const {TabPane} = Tabs;
 
-const { Content } = Layout;
+const {Content} = Layout;
 
 export enum LiveAuctionViewState {
   All = '0',
@@ -32,8 +32,8 @@ export const AuctionListView = () => {
     ...useAuctions(AuctionViewState.BuyNow),
   ];
   const [activeKey, setActiveKey] = useState(LiveAuctionViewState.All);
-  const { isLoading } = useMeta();
-  const { connected, publicKey } = useWallet();
+  const {isLoading} = useMeta();
+  const {connected, publicKey} = useWallet();
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -110,14 +110,14 @@ export const AuctionListView = () => {
     >
       {!isLoading
         ? items.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
   const endedAuctions = (
@@ -128,14 +128,14 @@ export const AuctionListView = () => {
     >
       {!isLoading
         ? auctionsEnded.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
 
@@ -145,14 +145,48 @@ export const AuctionListView = () => {
         src={'/myrill-main-banner.png'}
         headingText={'The amazing world of Myrill.'}
         subHeadingText={'Buy exclusive Myrill NFTs.'}
-        actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}
+        actionComponent={<HowToBuyModal buttonClassName="secondary-btn"/>}
         useBannerBg={false}
       />
-      <Layout style={{margin: 30}} >
-        <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <Col style={{ width: '100%', marginTop: 32 }}>
-            <Row style={{ justifyContent: 'center'}}>
-             <div style={{ fontSize: '54px'}}>Coming Soon</div>
+      <Layout style={{margin: 30}}>
+        <Content style={{display: 'flex', flexWrap: 'wrap'}}>
+          <Col style={{width: '100%', marginTop: 32}}>
+            <Row style={{justifyContent: 'center'}}>
+              <div style={{fontSize: '54px'}}>Coming Soon
+              </div>
+              <form action="https://myrill.io/submit-email" method="post">
+                <input type="email" style={{
+                  height: 'auto',
+                  width: '49%',
+                  background: '#031b69',
+                  borderRadius: '5px',
+                  border: 'none',
+                  padding: '10px'
+
+                }}
+                       className="email-form-email"
+                       placeholder="Email Address" name="email" required/>
+                <input type="submit" value="Get Notified" className="gradient-btn"
+                       style={{
+                         height: 'auto',
+                         width: '49%',
+                         display: 'inline-block',
+                          color: '#fff',
+                          textTransform: 'uppercase',
+                          fontWeight: 700,
+                          /*color: -webkit-linear-gradient(right, #fe998b, #fa768d, #f78ca0),*/
+                          transition: 'all 0.3s cubic-bezier(.25, .8, .25, 1)',
+                          padding: '10px 15px',
+                          borderRadius: '5px',
+                          border: 'None',
+                          position: 'relative',
+                          zIndex: 2,
+                          textAlign: 'center',
+                          cursor: 'pointer',
+                          /*background-image: linear-gradient(to right, #DD5E89 0%, #F7BB97 100%, #DD5E89 0%)*/
+                          backgroundColor: '#ffaaaa2e'
+                       }}/>
+              </form>
             </Row>
           </Col>
         </Content>
