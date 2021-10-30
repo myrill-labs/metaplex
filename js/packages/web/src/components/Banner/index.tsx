@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 
 export const Banner = (props: {
   src: string;
-  srcGIF: string;
+  // srcGIF: string;
   useBannerBg: boolean;
   headingText: string;
   subHeadingText: string;

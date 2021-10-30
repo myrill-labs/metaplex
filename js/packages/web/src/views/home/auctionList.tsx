@@ -13,7 +13,6 @@ import { CardLoader } from '../../components/MyLoader';
 import { useMeta } from '../../contexts';
 import { Banner } from '../../components/Banner';
 
-import { Particles } from 'react-particles-js';
 
 const { TabPane } = Tabs;
 

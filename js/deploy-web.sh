@@ -10,4 +10,7 @@ yarn prestart
 echo "Building 'web'..."
 # TODO: fix linting errors!
 CI=false && yarn build
-echo "#done"
+
+echo "pushing build folder to remote myrmidons folder ..."
+scp -r build/* ncarrara@myrill.io:/home/ncarrara/myrill/lendingpage/public/myrmidons
+echo "done"

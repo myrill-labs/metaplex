@@ -1,6 +1,6 @@
 export const data = {
-  headContent: {
-  },
+  // headContent: {
+  // },
   leftContent: undefined,
   midContent: {
     markdown:

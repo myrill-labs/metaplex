@@ -72,7 +72,7 @@ const cumulativeOffset = (element: HTMLElement) => {
   };
 };
 export const StaticPage = (props: {
-  headContent: HeadContent;
+  // headContent: HeadContent;
   leftContent?: LeftContent;
   midContent: MidContent;
   bottomContent: boolean;

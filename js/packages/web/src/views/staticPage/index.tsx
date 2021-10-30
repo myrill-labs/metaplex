@@ -8,7 +8,7 @@ export const StaticPageView = () => {
     <Layout style={{ margin: 0, alignItems: 'center' }}>
       <StaticPage
         leftContent={data.leftContent}
-        headContent={data.headContent}
+        // headContent={data.headContent}
         midContent={data.midContent}
         bottomContent={data.bottomContent}
       />
