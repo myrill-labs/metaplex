@@ -151,41 +151,8 @@ export const AuctionListView = () => {
       <Layout style={{margin: 30}} >
         <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
           <Col style={{ width: '100%', marginTop: 32 }}>
-            <Row>
-              <Tabs
-                activeKey={activeKey}
-                onTabClick={key => setActiveKey(key as LiveAuctionViewState)}
-              >
-                <TabPane
-                  tab={
-                    <>
-                      <span className={'live'}></span> Live
-                    </>
-                  }
-                  key={LiveAuctionViewState.All}
-                >
-                  {liveAuctionsView}
-                </TabPane>
-                {resaleAuctions.length > 0 && (
-                  <TabPane
-                    tab={'Secondary Marketplace'}
-                    key={LiveAuctionViewState.Resale}
-                  >
-                    {liveAuctionsView}
-                  </TabPane>
-                )}
-                <TabPane tab={'Ended'} key={LiveAuctionViewState.Ended}>
-                  {endedAuctions}
-                </TabPane>
-                {connected && (
-                  <TabPane
-                    tab={'Participated'}
-                    key={LiveAuctionViewState.Participated}
-                  >
-                    {liveAuctionsView}
-                  </TabPane>
-                )}
-              </Tabs>
+            <Row style={{ justifyContent: 'center'}}>
+             <div style={{ fontSize: '54px'}}>Coming Soon</div>
             </Row>
           </Col>
         </Content>

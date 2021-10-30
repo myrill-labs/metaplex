@@ -18,9 +18,6 @@ const getDefaultLinkActions = (connected: boolean) => {
     <Link to={`/`} key={'explore'}>
       <Button className="app-btn">Explore</Button>
     </Link>,
-    <Link to={`/myrmidons`} key={'myrmidons'}>
-      <Button className="app-btn">{connected ? 'My Items' : 'Artwork'}</Button>
-    </Link>,
     <Link to={`/about`} key={'about'}>
       <Button className="app-btn">About Myrmidons</Button>
     </Link>,
