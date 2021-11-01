@@ -52,6 +52,8 @@
     "build": "next build",
     "export": "cross-env ASSET_PREFIX=/myrmidons/ next export -o ../../build/web",
     "start:prod": "next start",
+    "scp": "scp -r ../../build/web/* ncarrara@myrill.io:/home/ncarrara/myrill/metaplex/public",
+    "deploy:google": "yarn build && yarn export && yarn scp",
     "test": "jest --passWithNoTests",
     "deploy:ar": "yarn export && arweave deploy-dir  ../../build/web --key-file ",
     "deploy:gh": "yarn export && gh-pages -d ../../build/web --repo https://github.com/metaplex-foundation/metaplex -t true",
