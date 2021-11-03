@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Menu, Modal } from 'antd';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { Notifications } from '../Notifications';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Button, Menu, Modal} from 'antd';
+import {useWallet} from '@solana/wallet-adapter-react';
+import {Notifications} from '../Notifications';
 import useWindowDimensions from '../../utils/layout';
-import { MenuOutlined } from '@ant-design/icons';
-import { HowToBuyModal } from '../HowToBuyModal';
+import {MenuOutlined} from '@ant-design/icons';
+import {HowToBuyModal} from '../HowToBuyModal';
 import {
   Cog,
   CurrentUserBadge,
   CurrentUserBadgeMobile,
 } from '../CurrentUserBadge';
-import { ConnectButton } from '@oyster/common';
+import {ConnectButton} from '@oyster/common';
 
 const getDefaultLinkActions = (connected: boolean) => {
   return [
     <Link to={`/`} key={'explore'}>
       <Button className="app-btn">Explore</Button>
+    </Link>,
+    <Link to={`/myrmidons`} key={'myrmidons'}>
+      <Button className="app-btn">{'Myrmidons'}</Button>
     </Link>,
     <Link to={`/about`} key={'about'}>
       <Button className="app-btn">About Myrmidons</Button>
@@ -24,8 +27,8 @@ const getDefaultLinkActions = (connected: boolean) => {
   ];
 };
 
-const DefaultActions = ({ vertical = false }: { vertical?: boolean }) => {
-  const { connected } = useWallet();
+const DefaultActions = ({vertical = false}: { vertical?: boolean }) => {
+  const {connected} = useWallet();
   return (
     <div
       style={{
@@ -39,15 +42,15 @@ const DefaultActions = ({ vertical = false }: { vertical?: boolean }) => {
 };
 
 const MetaplexMenu = () => {
-  const { width } = useWindowDimensions();
+  const {width} = useWindowDimensions();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-  const { connected } = useWallet();
+  const {connected} = useWallet();
 
   if (width < 768)
     return (
       <>
         <Modal
-          title={<img src={'/myrill-logo.svg'} />}
+          title={<img src={'/myrill-logo.svg'}/>}
           visible={isModalVisible}
           footer={null}
           className={'modal-box'}
@@ -86,8 +89,8 @@ const MetaplexMenu = () => {
                       setIsModalVisible(false);
                     }}
                   />
-                  <Notifications />
-                  <Cog />
+                  <Notifications/>
+                  <Cog/>
                 </>
               )}
             </div>
@@ -95,42 +98,42 @@ const MetaplexMenu = () => {
         </Modal>
         <MenuOutlined
           onClick={() => setIsModalVisible(true)}
-          style={{ fontSize: '1.4rem' }}
+          style={{fontSize: '1.4rem'}}
         />
       </>
     );
 
-  return <DefaultActions />;
+  return <DefaultActions/>;
 };
 
 export const LogoLink = () => {
   return (
     <Link to={`/`}>
-      <img className="myrill-logo" src={'/myrill-logo.svg'} />
+      <img className="myrill-logo" src={'/myrill-logo.svg'}/>
     </Link>
   );
 };
 
 export const AppBar = () => {
-  const { connected } = useWallet();
+  const {connected} = useWallet();
   return (
     <>
       <div id="mobile-navbar">
-        <LogoLink />
-        <MetaplexMenu />
+        <LogoLink/>
+        <MetaplexMenu/>
       </div>
       <div id="desktop-navbar">
         <div className="app-left">
-          <LogoLink />
+          <LogoLink/>
           &nbsp;&nbsp;&nbsp;
-          <MetaplexMenu />
+          <MetaplexMenu/>
         </div>
         <div className="app-right">
           {!connected && (
-            <HowToBuyModal buttonClassName="modal-button-default" />
+            <HowToBuyModal buttonClassName="modal-button-default"/>
           )}
           {!connected && (
-            <ConnectButton style={{ height: 48 }} allowWalletChange />
+            <ConnectButton style={{height: 48}} allowWalletChange/>
           )}
           {connected && (
             <>
@@ -139,8 +142,8 @@ export const AppBar = () => {
                 showAddress={true}
                 iconSize={24}
               />
-              <Notifications />
-              <Cog />
+              <Notifications/>
+              <Cog/>
             </>
           )}
         </div>

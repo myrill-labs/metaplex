@@ -21,6 +21,11 @@ export function Routes() {
       <HashRouter basename={'/'}>
         <Providers>
           <Switch>
+            <Route
+              exact
+              path="/myrmidons/:id?"
+              component={() => <ArtworksView/>}
+            />
             <Route path="/about" component={() => <StaticPageView/>}/>
             <Route path="/" component={() => <HomeView/>}/>
           </Switch>
