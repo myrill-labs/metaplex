@@ -1,24 +1,25 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { queryExtendedMetadata } from './queryExtendedMetadata';
-import { subscribeAccountsChange } from './subscribeAccountsChange';
-import { getEmptyMetaState } from './getEmptyMetaState';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+import {queryExtendedMetadata} from './queryExtendedMetadata';
+import {subscribeAccountsChange} from './subscribeAccountsChange';
+import {getEmptyMetaState} from './getEmptyMetaState';
 import {
   limitedLoadAccounts,
   loadAccounts,
   pullYourMetadata,
   USE_SPEED_RUN,
 } from './loadAccounts';
-import { MetaContextState, MetaState } from './types';
-import { useConnection } from '../connection';
-import { useStore } from '../store';
-import { AuctionData, BidderMetadata, BidderPot } from '../../actions';
+import { ConnectionProxy } from 'rpc-cache-server';
+import {MetaContextState, MetaState} from './types';
+import {useConnection} from '../connection';
+import {useStore} from '../store';
+import {AuctionData, BidderMetadata, BidderPot} from '../../actions';
 import {
   pullAuctionSubaccounts,
   pullPage,
   pullPayoutTickets,
   pullStoreMetadata,
 } from '.';
-import { StringPublicKey, TokenAccount, useUserAccounts } from '../..';
+import {StringPublicKey, TokenAccount, useUserAccounts} from '../..';
 
 const MetaContext = React.createContext<MetaContextState>({
   ...getEmptyMetaState(),
@@ -27,22 +28,22 @@ const MetaContext = React.createContext<MetaContextState>({
   update: () => [AuctionData, BidderMetadata, BidderPot],
 });
 
-export function MetaProvider({ children = null as any }) {
+export function MetaProvider({children = null as any}) {
   const connection = useConnection();
-  const { isReady, storeAddress } = useStore();
+  const {isReady, storeAddress} = useStore();
 
   const [state, setState] = useState<MetaState>(getEmptyMetaState());
   const [page, setPage] = useState(0);
   const [metadataLoaded, setMetadataLoaded] = useState(false);
   const [lastLength, setLastLength] = useState(0);
-  const { userAccounts } = useUserAccounts();
+  const {userAccounts} = useUserAccounts();
 
   const [isLoading, setIsLoading] = useState(true);
 
   const updateMints = useCallback(
     async metadataByMint => {
       try {
-        const { metadata, mintToMetadata } = await queryExtendedMetadata(
+        const {metadata, mintToMetadata} = await queryExtendedMetadata(
           connection,
           metadataByMint,
         );
@@ -57,6 +58,7 @@ export function MetaProvider({ children = null as any }) {
     },
     [setState],
   );
+
   async function pullAllMetadata() {
     if (isLoading) return false;
     if (!storeAddress) {
@@ -131,7 +133,22 @@ export function MetaProvider({ children = null as any }) {
     }
     console.log('------->Query started');
 
-    const nextState = await loadAccounts(connection);
+    /**
+     * Establish a JSON RPC connection and returns a Connection object that
+     * forwards the rpc method request to either solanaEndpoint or cacheEndpoint
+     * depending on the settings configuration in the cacheEndpoint server
+     *
+     * @param solanaEndpoint URL to the fullnode JSON RPC endpoint
+     * @param cacheEnpoint URL to the the cache reader
+     * @param defaultCommitment optional default commitment level used in case there is any error connecting to cacheEndpoint
+     * @return {<Promise<Connection>>}
+     */
+    const conn = await ConnectionProxy(
+      "https://solana-api.projectserum.com",
+      "http://localhost:3001"
+    )
+
+    const nextState = await loadAccounts(conn);
 
     console.log('------->Query finished');
 
