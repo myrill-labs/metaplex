@@ -15,7 +15,6 @@ import {
   MAX_NAME_LENGTH,
   MAX_SYMBOL_LENGTH,
   MAX_URI_LENGTH,
-  METADATA_PREFIX,
   decodeMetadata,
   getAuctionExtended,
   getMetadata,
@@ -108,7 +107,7 @@ export const pullYourMetadata = async (
         const edition = await getEdition(
           userTokenAccounts[i].info.mint.toBase58(),
         );
-        let newAdd = [
+        const newAdd = [
           await getMetadata(userTokenAccounts[i].info.mint.toBase58()),
           edition,
         ];
@@ -318,6 +317,7 @@ export const pullAuctionSubaccounts = async (
     }).then(forEach(processVaultData)),
 
     // bid redemptions
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ...WHITELISTED_AUCTION_MANAGER.map(a =>
       getProgramAccounts(connection, METAPLEX_ID, {
         filters: [
@@ -450,7 +450,7 @@ export const pullPage = async (
           batches.push(currBatch);
           currBatch = [];
         } else {
-          let newAdd = [
+          const newAdd = [
             ...cache.info.metadata,
             cache.info.auction,
             cache.info.auctionManager,
@@ -774,6 +774,7 @@ export const limitedLoadAccounts = async (connection: Connection) => {
 export const loadAccounts = async (connection: Connection) => {
   const state: MetaState = getEmptyMetaState();
   const updateState = makeSetter(state);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const forEachAccount = processingAccounts(updateState);
 
   const forEach =
@@ -783,18 +784,6 @@ export const loadAccounts = async (connection: Connection) => {
       }
     };
 
-  const loadVaults = () =>
-    getProgramAccounts(connection, VAULT_ID).then(
-      forEachAccount(processVaultData),
-    );
-  const loadAuctions = () =>
-    getProgramAccounts(connection, AUCTION_ID).then(
-      forEachAccount(processAuctions),
-    );
-  const loadMetaplex = () =>
-    getProgramAccounts(connection, METAPLEX_ID).then(
-      forEachAccount(processMetaplexAccounts),
-    );
   const loadCreators = () =>
     getProgramAccounts(connection, METAPLEX_ID, {
       filters: [
@@ -803,19 +792,14 @@ export const loadAccounts = async (connection: Connection) => {
         },
       ],
     }).then(forEach(processMetaplexAccounts));
+
   const loadMetadata = () =>
     pullMetadataByCreators(connection, state, updateState);
+
   const loadEditions = () =>
     pullEditions(connection, updateState, state, state.metadata);
 
-  const loading = [
-    loadCreators().then(loadMetadata).then(loadEditions),
-    await loadVaults(),
-    await loadAuctions(),
-    await loadMetaplex(),
-  ];
-
-  await Promise.all(loading);
+  loadCreators().then(loadMetadata).then(loadEditions);
 
   state.metadata = uniqWith(
     state.metadata,
@@ -865,20 +849,8 @@ const pullEditions = async (
     let editionKey: StringPublicKey;
     // TODO the nonce builder isnt working here, figure out why
     //if (metadata.info.editionNonce === null) {
+    // eslint-disable-next-line prefer-const
     editionKey = await getEdition(metadata.info.mint);
-    /*} else {
-      editionKey = (
-        await PublicKey.createProgramAddress(
-          [
-            Buffer.from(METADATA_PREFIX),
-            toPublicKey(METADATA_PROGRAM_ID).toBuffer(),
-            toPublicKey(metadata.info.mint).toBuffer(),
-            new Uint8Array([metadata.info.editionNonce || 0]),
-          ],
-          toPublicKey(METADATA_PROGRAM_ID),
-        )
-      ).toBase58();
-    }*/
 
     setOf100MetadataEditionKeys.push(editionKey);
 
