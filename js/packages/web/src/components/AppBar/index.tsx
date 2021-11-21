@@ -21,9 +21,12 @@ const getDefaultLinkActions = (connected: boolean) => {
     <Link to={`/myrmidons`} key={'myrmidons'}>
       <Button className="app-btn">{'Myrmidons'}</Button>
     </Link>,
-    <Link to={`/about`} key={'about'}>
-      <Button className="app-btn">About Myrmidons</Button>
-    </Link>,
+    <a target="_blank" rel="noopener noreferrer" href={"https://myrill.io/whitepaper"}>
+      <Button  className="app-btn">Whitepaper</Button>
+    </a>,
+     <a target="_blank" rel="noopener noreferrer" href={"https://myrill.io/club"}>
+      <Button  className="app-btn">Myrill Club</Button>
+    </a>,
   ];
 };
 
