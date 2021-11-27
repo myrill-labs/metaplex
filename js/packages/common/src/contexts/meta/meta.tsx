@@ -9,7 +9,6 @@ import {
   pullYourMetadata,
   USE_SPEED_RUN,
 } from './loadAccounts';
-import { ConnectionProxy } from 'rpc-cache-server';
 import {MetaContextState, MetaState} from './types';
 import {useConnection} from '../connection';
 import {useStore} from '../store';
