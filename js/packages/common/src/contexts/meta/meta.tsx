@@ -5,6 +5,7 @@ import {getEmptyMetaState} from './getEmptyMetaState';
 import {
   limitedLoadAccounts,
   loadAccounts,
+  loadAccounts2,
   pullYourMetadata,
   USE_SPEED_RUN,
 } from './loadAccounts';
@@ -30,7 +31,7 @@ const MetaContext = React.createContext<MetaContextState>({
 
 export function MetaProvider({children = null as any}) {
   const connection = useConnection();
-  const {isReady, storeAddress} = useStore();
+  const {isReady, storeAddress, ownerAddress} = useStore();
 
   const [state, setState] = useState<MetaState>(getEmptyMetaState());
   const [page, setPage] = useState(0);
@@ -253,7 +254,7 @@ export function MetaProvider({children = null as any}) {
     } else {
       console.log('------->No pagination detected');
       nextState = !USE_SPEED_RUN
-        ? await loadAccounts(connection)
+        ? await loadAccounts2(connection, ownerAddress)
         : await limitedLoadAccounts(connection);
 
       console.log('------->Query finished');

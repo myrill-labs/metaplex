@@ -12,6 +12,8 @@ import { useQuerySearch } from '../hooks';
 interface StoreConfig {
   // Store Address
   storeAddress?: StringPublicKey;
+  // Owner Address
+  ownerAddress?: string;
   // Store was configured via ENV or query params
   isConfigured: boolean;
   // Initial calculating of store address completed (successfully or not)
