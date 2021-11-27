@@ -881,9 +881,7 @@ export const loadAccounts2 = async (connection: Connection,
                                     ownerAddress: string | undefined): Promise<MetaState> => {
   const state: MetaState = getEmptyMetaState();
   const updateState = makeSetter(state);
-  console.error('Owner Address: ' + ownerAddress);
   const storeAddress = await getStoreID('EidNXXqQS3xf51utL4UFWoyEE2ZUFcdL683cZnpBGqjJ');
-  console.error('Store Address: ' + storeAddress);
 
   if (!storeAddress) {
     console.error('no store address. unable to lookup store account.');

@@ -1,8 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 
-import { merge, uniqWith } from 'lodash';
-import { ParsedAccount } from '../accounts/types';
-import { Metadata } from '../../actions';
+import {merge, uniqWith} from 'lodash';
+import {ParsedAccount} from '../accounts/types';
+import {Metadata} from '../../actions';
 import {queryExtendedMetadata} from './queryExtendedMetadata';
 import {subscribeAccountsChange} from './subscribeAccountsChange';
 import {getEmptyMetaState} from './getEmptyMetaState';
@@ -37,7 +37,11 @@ const MetaContext = React.createContext<MetaContextState>({
 
 export function MetaProvider({children = null as any}) {
   const connection = useConnection();
-  const {isReady, storeAddress, ownerAddress} = useStore();
+  const {isReady, storeAddress} = useStore();
+
+  const ownerAddress = 'EidNXXqQS3xf51utL4UFWoyEE2ZUFcdL683cZnpBGqjJ';
+  console.log("META store address: " + storeAddress);
+  console.log("META owner address: " + ownerAddress);
 
   const [state, setState] = useState<MetaState>(getEmptyMetaState());
   const [page, setPage] = useState(0);
@@ -66,14 +70,14 @@ export function MetaProvider({children = null as any}) {
     [setState],
   );
 
-    const patchState: MetaContextState['patchState'] = (
+  const patchState: MetaContextState['patchState'] = (
     ...args: Partial<MetaState>[]
   ) => {
     setState(current => {
-      const newState = merge({}, current, ...args, { store: current.store });
+      const newState = merge({}, current, ...args, {store: current.store});
 
       const currentMetdata = current.metadata ?? [];
-      const nextMetadata = args.reduce((memo, { metadata = [] }) => {
+      const nextMetadata = args.reduce((memo, {metadata = []}) => {
         return [...memo, ...metadata];
       }, [] as ParsedAccount<Metadata>[]);
 
@@ -327,33 +331,26 @@ export function MetaProvider({children = null as any}) {
     return subscribeAccountsChange(connection, () => state, setState);
   }, [connection, setState, isLoading, state]);
 
-  // TODO: fetch names dynamically
-  // TODO: get names for creators
-  // useEffect(() => {
-  //   (async () => {
-  //     const twitterHandles = await connection.getProgramAccounts(NAME_PROGRAM_ID, {
-  //      filters: [
-  //        {
-  //           dataSize: TWITTER_ACCOUNT_LENGTH,
-  //        },
-  //        {
-  //          memcmp: {
-  //           offset: VERIFICATION_AUTHORITY_OFFSET,
-  //           bytes: TWITTER_VERIFICATION_AUTHORITY.toBase58()
-  //          }
-  //        }
-  //      ]
-  //     });
+  useEffect(() => {
+    (async () => {
+      if (!storeAddress || !ownerAddress) {
+        if (isReady) {
+          setIsLoading(false);
+        }
+        return;
+      } else if (!state.store) {
+        setIsLoading(true);
+      }
 
-  //     const handles = twitterHandles.map(t => {
-  //       const owner = new PublicKey(t.account.data.slice(32, 64));
-  //       const name = t.account.data.slice(96, 114).toString();
-  //     });
+      const nextState = await loadAccounts2(connection, ownerAddress);
 
-  //     console.log(handles);
+      setState(nextState);
 
-  //   })();
-  // }, [whitelistedCreatorsByCreator]);
+      //@ts-ignore
+      window.loadingData = false;
+      setIsLoading(false);
+    })();
+  }, [storeAddress, isReady, ownerAddress]);
 
   return (
     <MetaContext.Provider
