@@ -1086,6 +1086,7 @@ export const loadAccounts2 = async (connection: Connection,
 export const loadAccounts = async (connection: Connection) => {
   const state: MetaState = getEmptyMetaState();
   const updateState = makeSetter(state);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const forEachAccount = processingAccounts(updateState);
 
   const forEach =
@@ -1095,18 +1096,6 @@ export const loadAccounts = async (connection: Connection) => {
       }
     };
 
-  const loadVaults = () =>
-    getProgramAccounts(connection, VAULT_ID).then(
-      forEachAccount(processVaultData),
-    );
-  const loadAuctions = () =>
-    getProgramAccounts(connection, AUCTION_ID).then(
-      forEachAccount(processAuctions),
-    );
-  const loadMetaplex = () =>
-    getProgramAccounts(connection, METAPLEX_ID).then(
-      forEachAccount(processMetaplexAccounts),
-    );
   const loadCreators = () =>
     getProgramAccounts(connection, METAPLEX_ID, {
       filters: [
@@ -1115,19 +1104,14 @@ export const loadAccounts = async (connection: Connection) => {
         },
       ],
     }).then(forEach(processMetaplexAccounts));
+
   const loadMetadata = () =>
     pullMetadataByCreators(connection, state, updateState);
+
   const loadEditions = () =>
     pullEditions(connection, updateState, state, state.metadata);
 
-  const loading = [
-    loadCreators().then(loadMetadata).then(loadEditions),
-    await loadVaults(),
-    await loadAuctions(),
-    await loadMetaplex(),
-  ];
-
-  await Promise.all(loading);
+  loadCreators().then(loadMetadata).then(loadEditions);
 
   state.metadata = uniqWith(
     state.metadata,
@@ -1177,20 +1161,8 @@ const pullEditions = async (
     let editionKey: StringPublicKey;
     // TODO the nonce builder isnt working here, figure out why
     //if (metadata.info.editionNonce === null) {
+    // eslint-disable-next-line prefer-const
     editionKey = await getEdition(metadata.info.mint);
-    /*} else {
-      editionKey = (
-        await PublicKey.createProgramAddress(
-          [
-            Buffer.from(METADATA_PREFIX),
-            toPublicKey(METADATA_PROGRAM_ID).toBuffer(),
-            toPublicKey(metadata.info.mint).toBuffer(),
-            new Uint8Array([metadata.info.editionNonce || 0]),
-          ],
-          toPublicKey(METADATA_PROGRAM_ID),
-        )
-      ).toBase58();
-    }*/
 
     setOf100MetadataEditionKeys.push(editionKey);
 
