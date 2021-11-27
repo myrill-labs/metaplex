@@ -83,6 +83,7 @@ export interface MetaState {
 
 export interface MetaContextState extends MetaState {
   isLoading: boolean;
+  patchState: (...args: Partial<MetaState>[]) => void;
   update: (
     auctionAddress?: any,
     bidderAddress?: any,

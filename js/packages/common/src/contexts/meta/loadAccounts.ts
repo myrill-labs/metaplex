@@ -49,7 +49,7 @@ import {getMultipleAccounts} from '../accounts/getMultipleAccounts';
 import {getProgramAccounts} from './web3';
 import {createPipelineExecutor} from '../../utils/createPipelineExecutor';
 import {getStoreID, programIds} from '../..';
-import { getAccountInfo } from '../accounts/getAccountInfo';
+import {getAccountInfo} from '../accounts/getAccountInfo';
 
 const MULTIPLE_ACCOUNT_BATCH_SIZE = 100;
 
@@ -811,7 +811,7 @@ const queryMultipleAccountsIntoState = async (
   keys: StringPublicKey[],
   commitment: string,
 ) => {
-  const { array } = await getMultipleAccounts(conn, keys, commitment);
+  const {array} = await getMultipleAccounts(conn, keys, commitment);
 
   await Promise.all(
     array.map(async (account, i) => {
@@ -825,7 +825,7 @@ const queryMultipleAccountsIntoState = async (
       }
 
       const PROGRAM_IDS = programIds();
-      const pair = { pubkey, account };
+      const pair = {pubkey, account};
 
       // account.owner ALSO has an incorrect type ascription
       const owner =
@@ -881,9 +881,9 @@ export const loadAccounts2 = async (connection: Connection,
                                     ownerAddress: string | undefined): Promise<MetaState> => {
   const state: MetaState = getEmptyMetaState();
   const updateState = makeSetter(state);
-  console.error('Owner Address: '+ownerAddress);
+  console.error('Owner Address: ' + ownerAddress);
   const storeAddress = await getStoreID('EidNXXqQS3xf51utL4UFWoyEE2ZUFcdL683cZnpBGqjJ');
-  console.error('Store Address: '+storeAddress);
+  console.error('Store Address: ' + storeAddress);
 
   if (!storeAddress) {
     console.error('no store address. unable to lookup store account.');
@@ -973,8 +973,9 @@ export const loadAccounts2 = async (connection: Connection,
   };
 
   const queryStorefront = async (storeAddress: StringPublicKey) => {
+    console.log("Store Data: strore adress: " + storeAddress);
     const storeData = await getAccountInfo(connection, storeAddress);
-
+    console.log("Store Data: " + storeData);
     if (storeData) {
       processMetaplexAccounts(
         {
@@ -1019,7 +1020,6 @@ export const loadAccounts2 = async (connection: Connection,
       );
     }
   };
-
 
   const queryVaultsForAuctionManagers = async (
     auctionManagers: ParsedAccount<AuctionManagerV1 | AuctionManagerV2>[],

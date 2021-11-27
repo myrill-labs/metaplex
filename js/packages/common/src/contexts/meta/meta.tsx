@@ -1,4 +1,8 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
+
+import { merge, uniqWith } from 'lodash';
+import { ParsedAccount } from '../accounts/types';
+import { Metadata } from '../../actions';
 import {queryExtendedMetadata} from './queryExtendedMetadata';
 import {subscribeAccountsChange} from './subscribeAccountsChange';
 import {getEmptyMetaState} from './getEmptyMetaState';
@@ -26,6 +30,9 @@ const MetaContext = React.createContext<MetaContextState>({
   isLoading: false,
   // @ts-ignore
   update: () => [AuctionData, BidderMetadata, BidderPot],
+  patchState: () => {
+    throw new Error('unreachable');
+  },
 });
 
 export function MetaProvider({children = null as any}) {
@@ -58,6 +65,26 @@ export function MetaProvider({children = null as any}) {
     },
     [setState],
   );
+
+    const patchState: MetaContextState['patchState'] = (
+    ...args: Partial<MetaState>[]
+  ) => {
+    setState(current => {
+      const newState = merge({}, current, ...args, { store: current.store });
+
+      const currentMetdata = current.metadata ?? [];
+      const nextMetadata = args.reduce((memo, { metadata = [] }) => {
+        return [...memo, ...metadata];
+      }, [] as ParsedAccount<Metadata>[]);
+
+      newState.metadata = uniqWith(
+        [...currentMetdata, ...nextMetadata],
+        (a, b) => a.pubkey === b.pubkey,
+      );
+
+      return newState;
+    });
+  };
 
   async function pullAllMetadata() {
     if (isLoading) return false;
@@ -133,22 +160,7 @@ export function MetaProvider({children = null as any}) {
     }
     console.log('------->Query started');
 
-    /**
-     * Establish a JSON RPC connection and returns a Connection object that
-     * forwards the rpc method request to either solanaEndpoint or cacheEndpoint
-     * depending on the settings configuration in the cacheEndpoint server
-     *
-     * @param solanaEndpoint URL to the fullnode JSON RPC endpoint
-     * @param cacheEnpoint URL to the the cache reader
-     * @param defaultCommitment optional default commitment level used in case there is any error connecting to cacheEndpoint
-     * @return {<Promise<Connection>>}
-     */
-    const conn = await ConnectionProxy(
-      "https://solana-api.projectserum.com",
-      "http://localhost:3001"
-    )
-
-    const nextState = await loadAccounts(conn);
+    const nextState = await loadAccounts2(connection, ownerAddress);
 
     console.log('------->Query finished');
 
@@ -353,6 +365,7 @@ export function MetaProvider({children = null as any}) {
         pullAllMetadata,
         pullBillingPage,
         pullAllSiteData,
+        patchState,
         isLoading,
       }}
     >
