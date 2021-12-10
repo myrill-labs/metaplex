@@ -23,7 +23,6 @@ import {
   MAX_METADATA_LEN,
   useConnection,
   IMetadataExtension,
-  Attribute,
   MetadataCategory,
   useConnectionConfig,
   Creator,
@@ -32,20 +31,23 @@ import {
   MetaplexOverlay,
   MetadataFile,
   StringPublicKey,
+  WRAPPED_SOL_MINT,
+  getAssetCostToStore,
+  LAMPORT_MULTIPLIER,
 } from '@oyster/common';
-import {useWallet} from '@solana/wallet-adapter-react';
-import {getAssetCostToStore, LAMPORT_MULTIPLIER} from '../../utils/assets';
-import {Connection} from '@solana/web3.js';
-import {MintLayout} from '@solana/spl-token';
-import {useHistory, useParams} from 'react-router-dom';
-import {cleanName, getLast} from '../../utils/utils';
-import {AmountLabel} from '../../components/AmountLabel';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Connection } from '@solana/web3.js';
+import { MintLayout } from '@solana/spl-token';
+import { useHistory, useParams } from 'react-router-dom';
+import { cleanName, getLast } from '../../utils/utils';
+import { AmountLabel } from '../../components/AmountLabel';
 import useWindowDimensions from '../../utils/layout';
 import {
   LoadingOutlined,
   MinusCircleOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
+import { useTokenList } from '../../contexts/tokenList';
 
 const {Step} = Steps;
 const {Dragger} = Upload;
@@ -53,7 +55,7 @@ const {Text} = Typography;
 
 export const ArtCreateView = () => {
   const connection = useConnection();
-  const {env} = useConnectionConfig();
+  const { endpoint } = useConnectionConfig();
   const wallet = useWallet();
   const [alertMessage, setAlertMessage] = useState<string>();
   const {step_param}: { step_param: string } = useParams();
@@ -120,7 +122,7 @@ export const ArtCreateView = () => {
       const _nft = await mintNFT(
         connection,
         wallet,
-        env,
+        endpoint.name,
         files,
         metadata,
         setNFTcreateProgress,
@@ -128,6 +130,7 @@ export const ArtCreateView = () => {
       );
 
       if (_nft) setNft(_nft);
+      setAlertMessage('');
     } catch (e: any) {
       setAlertMessage(e.message);
     } finally {
@@ -371,6 +374,12 @@ const UploadStep = (props: {
     }
   };
 
+  const { category } = props.attributes.properties;
+
+  const urlPlaceholder = `http://example.com/path/to/${
+    category === MetadataCategory.Image ? 'image' : 'file'
+  }`;
+
   return (
     <>
       <Row className="call-to-action">
@@ -483,7 +492,7 @@ const UploadStep = (props: {
       >
         <Input
           disabled={!!mainFile}
-          placeholder="http://example.com/path/to/image"
+          placeholder={urlPlaceholder}
           value={customURL}
           onChange={ev => setCustomURL(ev.target.value)}
           onFocus={() => setCustomURLErr('')}
@@ -636,11 +645,13 @@ const InfoStep = (props: {
           {props.attributes.image && (
             <ArtCard
               image={image}
-              animationURL={animation_url}
+              animationURL={props.attributes.animation_url}
               category={props.attributes.properties?.category}
               name={props.attributes.name}
               symbol={props.attributes.symbol}
               small={true}
+              artView={!(props.files.length > 1)}
+              className="art-create-card"
             />
           )}
         </Col>
@@ -651,6 +662,7 @@ const InfoStep = (props: {
               autoFocus
               className="input"
               placeholder="Max 50 characters"
+              maxLength={50}
               allowClear
               value={props.attributes.name}
               onChange={info =>
@@ -661,11 +673,12 @@ const InfoStep = (props: {
               }
             />
           </label>
-          {/* <label className="action-field">
+          <label className="action-field">
             <span className="field-title">Symbol</span>
             <Input
               className="input"
               placeholder="Max 10 characters"
+              maxLength={10}
               allowClear
               value={props.attributes.symbol}
               onChange={info =>
@@ -675,13 +688,14 @@ const InfoStep = (props: {
                 })
               }
             />
-          </label> */}
+          </label>
 
           <label className="action-field">
             <span className="field-title">Description</span>
             <Input.TextArea
               className="input textarea"
               placeholder="Max 500 characters"
+              maxLength={500}
               value={props.attributes.description}
               onChange={info =>
                 props.setAttributes({
@@ -1108,11 +1122,13 @@ const LaunchStep = (props: {
           {props.attributes.image && (
             <ArtCard
               image={image}
-              animationURL={animation_url}
+              animationURL={props.attributes.animation_url}
               category={props.attributes.properties?.category}
               name={props.attributes.name}
               symbol={props.attributes.symbol}
               small={true}
+              artView={props.files[1]?.type === 'unknown'}
+              className="art-create-card"
             />
           )}
         </Col>
@@ -1125,7 +1141,13 @@ const LaunchStep = (props: {
             suffix="%"
           />
           {cost ? (
-            <AmountLabel title="Cost to Create" amount={cost.toFixed(5)}/>
+            <AmountLabel
+              title="Cost to Create"
+              amount={cost.toFixed(5)}
+              tokenInfo={useTokenList().tokenMap.get(
+                WRAPPED_SOL_MINT.toString(),
+              )}
+            />
           ) : (
             <Spin/>
           )}

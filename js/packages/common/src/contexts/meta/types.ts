@@ -25,6 +25,10 @@ import {
   StoreIndexer,
   WhitelistedCreator,
 } from '../../models/metaplex';
+import { PackCard } from '../../models/packs/accounts/PackCard';
+import { PackSet } from '../../models/packs/accounts/PackSet';
+import { PackVoucher } from '../../models/packs/accounts/PackVoucher';
+import { ProvingProcess } from '../../models/packs/accounts/ProvingProcess';
 import { PublicKeyStringAndAccount, StringPublicKey } from '../../utils';
 import { ParsedAccount } from '../accounts/types';
 
@@ -79,6 +83,11 @@ export interface MetaState {
   payoutTickets: Record<string, ParsedAccount<PayoutTicket>>;
   auctionCaches: Record<string, ParsedAccount<AuctionCache>>;
   storeIndexer: ParsedAccount<StoreIndexer>[];
+  packs: Record<string, ParsedAccount<PackSet>>;
+  packCards: Record<string, ParsedAccount<PackCard>>;
+  packCardsByPackSet: Record<string, ParsedAccount<PackCard>[]>;
+  vouchers: Record<string, ParsedAccount<PackVoucher>>;
+  provingProcesses: Record<string, ParsedAccount<ProvingProcess>>;
 }
 
 export interface MetaContextState extends MetaState {
@@ -87,6 +96,7 @@ export interface MetaContextState extends MetaState {
   update: (
     auctionAddress?: any,
     bidderAddress?: any,
+    userTokenAccounts?: TokenAccount[],
   ) => [
     ParsedAccount<AuctionData>,
     ParsedAccount<BidderPot>,
@@ -96,6 +106,11 @@ export interface MetaContextState extends MetaState {
   pullBillingPage: (auctionAddress: StringPublicKey) => void;
   pullAllSiteData: () => void;
   pullAllMetadata: () => void;
+  pullItemsPage: (userTokenAccounts: TokenAccount[]) => Promise<void>;
+  pullPackPage: (
+    userTokenAccounts: TokenAccount[],
+    packSetKey: StringPublicKey,
+  ) => Promise<void>;
 }
 
 export type AccountAndPubkey = {

@@ -1,11 +1,8 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useWallet } from '@solana/wallet-adapter-react';
 
-import {merge, uniqWith} from 'lodash';
-import {ParsedAccount} from '../accounts/types';
-import {Metadata} from '../../actions';
-import {queryExtendedMetadata} from './queryExtendedMetadata';
-import {subscribeAccountsChange} from './subscribeAccountsChange';
-import {getEmptyMetaState} from './getEmptyMetaState';
+import { queryExtendedMetadata } from './queryExtendedMetadata';
+import { getEmptyMetaState } from './getEmptyMetaState';
 import {
   limitedLoadAccounts,
   loadAccounts,
@@ -22,6 +19,8 @@ import {
   pullPage,
   pullPayoutTickets,
   pullStoreMetadata,
+  pullPacks,
+  pullPack,
 } from '.';
 import {StringPublicKey, TokenAccount, useUserAccounts} from '../..';
 
@@ -37,7 +36,8 @@ const MetaContext = React.createContext<MetaContextState>({
 
 export function MetaProvider({children = null as any}) {
   const connection = useConnection();
-  const {isReady, storeAddress} = useStore();
+  const { isReady, storeAddress } = useStore();
+  const wallet = useWallet();
 
   const ownerAddress = 'EidNXXqQS3xf51utL4UFWoyEE2ZUFcdL683cZnpBGqjJ';
   console.log("META store address: " + storeAddress);
@@ -101,7 +101,9 @@ export function MetaProvider({children = null as any}) {
       setIsLoading(true);
     }
     setIsLoading(true);
+
     const nextState = await pullStoreMetadata(connection, state);
+
     setIsLoading(false);
     setState(nextState);
     await updateMints(nextState.metadataByMint);
@@ -152,6 +154,65 @@ export function MetaProvider({children = null as any}) {
     return nextState;
   }
 
+  async function pullItemsPage(
+    userTokenAccounts: TokenAccount[],
+  ): Promise<void> {
+    if (isLoading) {
+      return;
+    }
+    if (!storeAddress) {
+      return setIsLoading(false);
+    } else if (!state.store) {
+      setIsLoading(true);
+    }
+
+    const shouldEnableNftPacks = process.env.NEXT_ENABLE_NFT_PACKS === 'true';
+    const packsState = shouldEnableNftPacks
+      ? await pullPacks(connection, state, wallet?.publicKey)
+      : state;
+
+    const nextState = await pullYourMetadata(
+      connection,
+      userTokenAccounts,
+      packsState,
+    );
+
+    await updateMints(nextState.metadataByMint);
+
+    setState(nextState);
+  }
+
+  async function pullPackPage(
+    userTokenAccounts: TokenAccount[],
+    packSetKey: StringPublicKey,
+  ): Promise<void> {
+    if (isLoading) {
+      return;
+    }
+
+    if (!storeAddress && isReady) {
+      return setIsLoading(false);
+    } else if (!state.store) {
+      setIsLoading(true);
+    }
+
+    const packState = await pullPack({
+      connection,
+      state,
+      packSetKey,
+      walletKey: wallet?.publicKey,
+    });
+
+    const nextState = await pullYourMetadata(
+      connection,
+      userTokenAccounts,
+      packState,
+    );
+    await updateMints(nextState.metadataByMint);
+
+    setState(nextState);
+  }
+
   async function pullAllSiteData() {
     if (isLoading) return state;
     if (!storeAddress) {
@@ -191,9 +252,15 @@ export function MetaProvider({children = null as any}) {
       setIsLoading(true);
     }
 
+    const shouldFetchNftPacks = process.env.NEXT_ENABLE_NFT_PACKS === 'true';
+    let nextState = await pullPage(
+      connection,
+      page,
+      state,
+      wallet?.publicKey,
+      shouldFetchNftPacks,
+    );
     console.log('-----> Query started');
-
-    let nextState = await pullPage(connection, page, state);
 
     if (nextState.storeIndexer.length) {
       if (USE_SPEED_RUN) {
@@ -286,6 +353,13 @@ export function MetaProvider({children = null as any}) {
     await updateMints(nextState.metadataByMint);
 
     if (auctionAddress && bidderAddress) {
+      nextState = await pullAuctionSubaccounts(
+        connection,
+        auctionAddress,
+        nextState,
+      );
+      setState(nextState);
+
       const auctionBidderKey = auctionAddress + '-' + bidderAddress;
       return [
         nextState.auctions[auctionAddress],
@@ -323,24 +397,23 @@ export function MetaProvider({children = null as any}) {
     userAccounts.length > 0,
   ]);
 
-  useEffect(() => {
-    if (isLoading) {
-      return;
-    }
-
-    return subscribeAccountsChange(connection, () => state, setState);
-  }, [connection, setState, isLoading, state]);
-
-  useEffect(() => {
-    (async () => {
-      if (!storeAddress || !ownerAddress) {
-        if (isReady) {
-          setIsLoading(false);
-        }
-        return;
-      } else if (!state.store) {
-        setIsLoading(true);
-      }
+  // TODO: fetch names dynamically
+  // TODO: get names for creators
+  // useEffect(() => {
+  //   (async () => {
+  //     const twitterHandles = await connection.getProgramAccounts(NAME_PROGRAM_ID, {
+  //      filters: [
+  //        {
+  //           dataSize: TWITTER_ACCOUNT_LENGTH,
+  //        },
+  //        {
+  //          memcmp: {
+  //           offset: VERIFICATION_AUTHORITY_OFFSET,
+  //           bytes: TWITTER_VERIFICATION_AUTHORITY.toBase58()
+  //          }
+  //        }
+  //      ]
+  //     });
 
       const nextState = await loadAccounts2(connection, ownerAddress);
 
@@ -361,8 +434,10 @@ export function MetaProvider({children = null as any}) {
         pullAuctionPage,
         pullAllMetadata,
         pullBillingPage,
+        // @ts-ignore
         pullAllSiteData,
-        patchState,
+        pullItemsPage,
+        pullPackPage,
         isLoading,
       }}
     >
