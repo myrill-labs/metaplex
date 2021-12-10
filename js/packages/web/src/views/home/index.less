@@ -12,6 +12,45 @@ footer.ant-layout-footer {
   width: 100%;
 }
 
+.email-form-email {
+    background: #031b69;
+    //border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+
+.gradient-btn {
+  font-family: Arial;
+  font-size: 14px;
+  display: inline-block;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  /*color: -webkit-linear-gradient(right, #fe998b, #fa768d, #f78ca0);*/
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: None;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  cursor: pointer;
+  /*background-image: linear-gradient(to right, #DD5E89 0%, #F7BB97 100%, #DD5E89 0%)*/
+  background-color: #ffaaaa2e
+
+
+}
+
+.gradient-btn:hover {
+  /*transition: all 0.3s cubic-bezier(.8, .25, .8, 1);*/
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-position: right center;
+  background-image: linear-gradient(to left, #DD5E89 0%, #F7BB97 100%, #DD5E89 100%)
+
+  /*margin: 8px 10px 12px;*/
+}
+
 .ant-layout-sider {
   background-color: unset;
 }
@@ -19,12 +58,15 @@ footer.ant-layout-footer {
 a:link {
   color: #b480eb;
 }
+
 a:visited {
   color: #b480eb;
 }
+
 a:hover {
   color: #b480eb;
 }
+
 a:active {
   color: #b480eb;
 }
@@ -48,19 +90,24 @@ a:active {
   /* change div to reference your elements you put in <Masonry> */
   margin-bottom: 30px;
 }
+
 .ant-tabs-ink-bar {
   display: none;
 }
+
 .ant-tabs-top > .ant-tabs-nav::before, .ant-tabs-top > div > .ant-tabs-nav::before {
-    display: none;
+  display: none;
 }
+
 .ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
   margin-bottom: 24px;
 }
+
 .ant-tabs-tab + .ant-tabs-tab {
   margin-left: 8px;
 }
-.ant-tabs-tab{
+
+.ant-tabs-tab {
   /* Auto Layout */
   display: flex;
   flex-direction: row;
@@ -72,7 +119,8 @@ a:active {
   font-weight: 600;
   height: 40px;
   opacity: 0.8;
-  &.ant-tabs-tab-active{
+
+  &.ant-tabs-tab-active {
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 24px rgba(26, 26, 26, 0.12);
     border-radius: 8px;
@@ -87,6 +135,7 @@ a:active {
     display: flex;
     align-items: center;
   }
+
   span.live {
     width: 8px;
     height: 8px;
@@ -100,7 +149,7 @@ a:active {
     flex: none;
     order: 0;
     flex-grow: 0;
-    margin-right:12px;
+    margin-right: 12px;
 
   }
 
@@ -111,9 +160,11 @@ a:active {
   .my-masonry-grid {
     margin-left: -15px; /* gutter size offset */
   }
+
   .my-masonry-grid_column {
     padding-left: 15px; /* gutter size offset */
   }
+
   .my-masonry-grid_column > div {
     margin-bottom: 15px; /* space between items */
   }
@@ -121,4 +172,9 @@ a:active {
 
 .ant-card-body {
   padding: 0;
+}
+
+#tsparticles {
+  position: absolute;
+  z-index: 10;
 }

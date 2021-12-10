@@ -65,7 +65,7 @@ export const AuctionItem = ({
     marginLeft: size > 1 && index === 0 ? '0px' : 'auto',
     background: 'black',
     boxShadow: 'rgb(0 0 0 / 10%) 12px 2px 20px 14px',
-    aspectRatio: '1/1',
+    aspectRatio: '1/1'
   };
   return (
     <ArtContent
@@ -259,9 +259,9 @@ export const AuctionView = () => {
     );
   } else {
     return (
-      <Row justify="center" ref={ref} gutter={[48, 0]}>
+      <Row  className="auction-desktop-container" justify="center" ref={ref} gutter={[48, 0]}>
         <Col span={24} md={10} className={'img-cont-500'}>
-          <div className="auction-view" style={{ minHeight: 300 }}>
+          <div className="auction-view" style={{ minHeight: 300, overflow: 'hidden !important'  }}>
             <Carousel
               autoplay={false}
               afterChange={index => setCurrentIndex(index)}
@@ -382,6 +382,13 @@ export const AuctionView = () => {
     );
   }
 };
+
+
+
+
+
+
+
 
 const BidLine = (props: {
   bid: any;

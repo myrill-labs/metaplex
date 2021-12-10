@@ -1,8 +1,10 @@
 import React from 'react';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
+import {Row} from "antd";
 
 export const Banner = (props: {
   src: string;
+  // srcGIF: string;
   useBannerBg: boolean;
   headingText: string;
   subHeadingText: string;
@@ -34,16 +36,17 @@ export const Banner = (props: {
   return (
     <>
       <div id="mobile-banner">
-        <img className="banner-img" src={props.src} />
+        <img className="banner-img" src={props.src}/>
         <div className="banner-content">
           <div id={'main-heading'}>{props.headingText}</div>
           <div id={'sub-heading'}>{props.subHeadingText}</div>
           {props.actionComponent}
         </div>
       </div>
+
       <div
         id={'current-banner'}
-        style={{ backgroundImage: `url(${props.src})` }}
+        style={{backgroundImage: `url(${props.src})`, imageRendering: "pixelated"}}
       >
         <span id={'gradient-banner'}></span>
         <div id="banner-inner">
@@ -53,11 +56,6 @@ export const Banner = (props: {
             {props.actionComponent}
           </div>
           {props.children}
-          <div className="powered-by">
-            <span>
-              POWERED BY <b>METAPLEX</b>
-            </span>
-          </div>
         </div>
       </div>
     </>

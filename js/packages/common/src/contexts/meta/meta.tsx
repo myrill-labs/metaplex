@@ -1,48 +1,60 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { queryExtendedMetadata } from './queryExtendedMetadata';
-import { subscribeAccountsChange } from './subscribeAccountsChange';
-import { getEmptyMetaState } from './getEmptyMetaState';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
+
+import {merge, uniqWith} from 'lodash';
+import {ParsedAccount} from '../accounts/types';
+import {Metadata} from '../../actions';
+import {queryExtendedMetadata} from './queryExtendedMetadata';
+import {subscribeAccountsChange} from './subscribeAccountsChange';
+import {getEmptyMetaState} from './getEmptyMetaState';
 import {
   limitedLoadAccounts,
   loadAccounts,
+  loadAccounts2,
   pullYourMetadata,
   USE_SPEED_RUN,
 } from './loadAccounts';
-import { MetaContextState, MetaState } from './types';
-import { useConnection } from '../connection';
-import { useStore } from '../store';
-import { AuctionData, BidderMetadata, BidderPot } from '../../actions';
+import {MetaContextState, MetaState} from './types';
+import {useConnection} from '../connection';
+import {useStore} from '../store';
+import {AuctionData, BidderMetadata, BidderPot} from '../../actions';
 import {
   pullAuctionSubaccounts,
   pullPage,
   pullPayoutTickets,
   pullStoreMetadata,
 } from '.';
-import { StringPublicKey, TokenAccount, useUserAccounts } from '../..';
+import {StringPublicKey, TokenAccount, useUserAccounts} from '../..';
 
 const MetaContext = React.createContext<MetaContextState>({
   ...getEmptyMetaState(),
   isLoading: false,
   // @ts-ignore
   update: () => [AuctionData, BidderMetadata, BidderPot],
+  patchState: () => {
+    throw new Error('unreachable');
+  },
 });
 
-export function MetaProvider({ children = null as any }) {
+export function MetaProvider({children = null as any}) {
   const connection = useConnection();
-  const { isReady, storeAddress } = useStore();
+  const {isReady, storeAddress} = useStore();
+
+  const ownerAddress = 'EidNXXqQS3xf51utL4UFWoyEE2ZUFcdL683cZnpBGqjJ';
+  console.log("META store address: " + storeAddress);
+  console.log("META owner address: " + ownerAddress);
 
   const [state, setState] = useState<MetaState>(getEmptyMetaState());
   const [page, setPage] = useState(0);
   const [metadataLoaded, setMetadataLoaded] = useState(false);
   const [lastLength, setLastLength] = useState(0);
-  const { userAccounts } = useUserAccounts();
+  const {userAccounts} = useUserAccounts();
 
   const [isLoading, setIsLoading] = useState(true);
 
   const updateMints = useCallback(
     async metadataByMint => {
       try {
-        const { metadata, mintToMetadata } = await queryExtendedMetadata(
+        const {metadata, mintToMetadata} = await queryExtendedMetadata(
           connection,
           metadataByMint,
         );
@@ -57,6 +69,27 @@ export function MetaProvider({ children = null as any }) {
     },
     [setState],
   );
+
+  const patchState: MetaContextState['patchState'] = (
+    ...args: Partial<MetaState>[]
+  ) => {
+    setState(current => {
+      const newState = merge({}, current, ...args, {store: current.store});
+
+      const currentMetdata = current.metadata ?? [];
+      const nextMetadata = args.reduce((memo, {metadata = []}) => {
+        return [...memo, ...metadata];
+      }, [] as ParsedAccount<Metadata>[]);
+
+      newState.metadata = uniqWith(
+        [...currentMetdata, ...nextMetadata],
+        (a, b) => a.pubkey === b.pubkey,
+      );
+
+      return newState;
+    });
+  };
+
   async function pullAllMetadata() {
     if (isLoading) return false;
     if (!storeAddress) {
@@ -131,7 +164,7 @@ export function MetaProvider({ children = null as any }) {
     }
     console.log('------->Query started');
 
-    const nextState = await loadAccounts(connection);
+    const nextState = await loadAccounts2(connection, ownerAddress);
 
     console.log('------->Query finished');
 
@@ -236,7 +269,7 @@ export function MetaProvider({ children = null as any }) {
     } else {
       console.log('------->No pagination detected');
       nextState = !USE_SPEED_RUN
-        ? await loadAccounts(connection)
+        ? await loadAccounts2(connection, ownerAddress)
         : await limitedLoadAccounts(connection);
 
       console.log('------->Query finished');
@@ -298,33 +331,26 @@ export function MetaProvider({ children = null as any }) {
     return subscribeAccountsChange(connection, () => state, setState);
   }, [connection, setState, isLoading, state]);
 
-  // TODO: fetch names dynamically
-  // TODO: get names for creators
-  // useEffect(() => {
-  //   (async () => {
-  //     const twitterHandles = await connection.getProgramAccounts(NAME_PROGRAM_ID, {
-  //      filters: [
-  //        {
-  //           dataSize: TWITTER_ACCOUNT_LENGTH,
-  //        },
-  //        {
-  //          memcmp: {
-  //           offset: VERIFICATION_AUTHORITY_OFFSET,
-  //           bytes: TWITTER_VERIFICATION_AUTHORITY.toBase58()
-  //          }
-  //        }
-  //      ]
-  //     });
+  useEffect(() => {
+    (async () => {
+      if (!storeAddress || !ownerAddress) {
+        if (isReady) {
+          setIsLoading(false);
+        }
+        return;
+      } else if (!state.store) {
+        setIsLoading(true);
+      }
 
-  //     const handles = twitterHandles.map(t => {
-  //       const owner = new PublicKey(t.account.data.slice(32, 64));
-  //       const name = t.account.data.slice(96, 114).toString();
-  //     });
+      const nextState = await loadAccounts2(connection, ownerAddress);
 
-  //     console.log(handles);
+      setState(nextState);
 
-  //   })();
-  // }, [whitelistedCreatorsByCreator]);
+      //@ts-ignore
+      window.loadingData = false;
+      setIsLoading(false);
+    })();
+  }, [storeAddress, isReady, ownerAddress]);
 
   return (
     <MetaContext.Provider
@@ -336,6 +362,7 @@ export function MetaProvider({ children = null as any }) {
         pullAllMetadata,
         pullBillingPage,
         pullAllSiteData,
+        patchState,
         isLoading,
       }}
     >

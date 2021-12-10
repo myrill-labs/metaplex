@@ -1,21 +1,22 @@
-import { useWallet } from '@solana/wallet-adapter-react';
-import { Col, Layout, Row, Tabs } from 'antd';
+import {useWallet} from '@solana/wallet-adapter-react';
+import {Col, Layout, Row, Tabs} from 'antd';
 import BN from 'bn.js';
-import React, { useState, useMemo } from 'react';
+import React, {useState, useMemo} from 'react';
 import Masonry from 'react-masonry-css';
-import { HowToBuyModal } from '../../components/HowToBuyModal';
+import {HowToBuyModal} from '../../components/HowToBuyModal';
 
-import { AuctionViewState, useAuctions, AuctionView } from '../../hooks';
+import {AuctionViewState, useAuctions, AuctionView} from '../../hooks';
 
-import { AuctionRenderCard } from '../../components/AuctionRenderCard';
-import { Link } from 'react-router-dom';
-import { CardLoader } from '../../components/MyLoader';
-import { useMeta } from '../../contexts';
-import { Banner } from '../../components/Banner';
+import {AuctionRenderCard} from '../../components/AuctionRenderCard';
+import {Link} from 'react-router-dom';
+import {CardLoader} from '../../components/MyLoader';
+import {useMeta} from '../../contexts';
+import {Banner} from '../../components/Banner';
 
-const { TabPane } = Tabs;
 
-const { Content } = Layout;
+const {TabPane} = Tabs;
+
+const {Content} = Layout;
 
 export enum LiveAuctionViewState {
   All = '0',
@@ -31,8 +32,8 @@ export const AuctionListView = () => {
     ...useAuctions(AuctionViewState.BuyNow),
   ];
   const [activeKey, setActiveKey] = useState(LiveAuctionViewState.All);
-  const { isLoading } = useMeta();
-  const { connected, publicKey } = useWallet();
+  const {isLoading} = useMeta();
+  const {connected, publicKey} = useWallet();
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -109,14 +110,14 @@ export const AuctionListView = () => {
     >
       {!isLoading
         ? items.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
   const endedAuctions = (
@@ -127,64 +128,41 @@ export const AuctionListView = () => {
     >
       {!isLoading
         ? auctionsEnded.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
 
   return (
     <>
       <Banner
-        src={'/main-banner.svg'}
-        headingText={'The amazing world of Metaplex.'}
-        subHeadingText={'Buy exclusive Metaplex NFTs.'}
-        actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}
-        useBannerBg={true}
+        src={'myrill-main-banner.png'}
+        headingText={'Myrill\'s Marketplace'}
+        subHeadingText={'Buy exclusive Myrill\'s NFTs: the Myrmidons.'}
+        actionComponent={<HowToBuyModal buttonClassName="secondary-btn"/>}
+        useBannerBg={false}
       />
-      <Layout>
-        <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <Col style={{ width: '100%', marginTop: 32 }}>
-            <Row>
-              <Tabs
-                activeKey={activeKey}
-                onTabClick={key => setActiveKey(key as LiveAuctionViewState)}
-              >
-                <TabPane
-                  tab={
-                    <>
-                      <span className={'live'}></span> Live
-                    </>
-                  }
-                  key={LiveAuctionViewState.All}
-                >
-                  {liveAuctionsView}
-                </TabPane>
-                {resaleAuctions.length > 0 && (
-                  <TabPane
-                    tab={'Secondary Marketplace'}
-                    key={LiveAuctionViewState.Resale}
-                  >
-                    {liveAuctionsView}
-                  </TabPane>
-                )}
-                <TabPane tab={'Ended'} key={LiveAuctionViewState.Ended}>
-                  {endedAuctions}
-                </TabPane>
-                {connected && (
-                  <TabPane
-                    tab={'Participated'}
-                    key={LiveAuctionViewState.Participated}
-                  >
-                    {liveAuctionsView}
-                  </TabPane>
-                )}
-              </Tabs>
+      <Layout style={{margin: 30}}>
+        <Content style={{display: 'flex', flexWrap: 'wrap'}}>
+          <Col style={{width: '100%', marginTop: 32}}>
+            <Row style={{justifyContent: 'center'}}>
+              <div style={{font: '54px arial'}}>
+                Coming Soon
+              </div>
+
+            </Row>
+            <div style={{margin:30}}/>
+            <Row style={{justifyContent: 'center'}}>
+              <form action="https://myrill.io/submit-email" method="post">
+                <input type="email" className="email-form-email" placeholder="Email Address" name="email" required/>
+                <input type="submit" value="Get Notified" className="gradient-btn"/>
+              </form>
             </Row>
           </Col>
         </Content>

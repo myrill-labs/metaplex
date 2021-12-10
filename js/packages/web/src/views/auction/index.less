@@ -47,35 +47,49 @@ h6 {
   color: #FFFFFF;
   opacity: 0.5;
 }
+
 .info-container {
   display: flex;
   width: 100%;
   justify-content: flex-start;
+
   div.info-component {
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     padding-right: 24px;
     padding-left: 24px;
+
     &:last-child {
       border-right: none;
     }
+
     &:first-child {
       padding-left: 0;
     }
   }
 }
-.auction-mobile-container{
+
+.auction-mobile-container {
   padding: 15px;
-  .auction-mobile-section{
-    .art-title{
+
+  .auction-mobile-section {
+    .art-title {
       margin-top: 5px;
       margin-bottom: 5px;
     }
+
     margin-top: 25px;
   }
 }
+
+.auction-desktop-container {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
 .info-view-container {
-   display: flex;
+  display: flex;
   justify-content: flex-end;
+
   .info-view {
     button.tag {
       &:first-child {
@@ -84,6 +98,7 @@ h6 {
     }
   }
 }
+
 h6.info-title {
   font-weight: normal;
   font-size: 14px;
@@ -93,7 +108,7 @@ h6.info-title {
   margin-bottom: 4px;
 }
 
-.bids-lists{
+.bids-lists {
   width: 100%;
   padding-left: 24px;
   padding-right: 24px;
@@ -118,10 +133,11 @@ h6.info-title {
   white-space: break-spaces;
 }
 
-.a-attributes{
-  .ant-card{
+.a-attributes {
+  .ant-card {
     background-color: transparent;
-    .ant-card-head{
+
+    .ant-card-head {
       color: white;
     }
   }
@@ -150,6 +166,7 @@ h6.info-title {
 .ant-carousel .slick-list .slick-slide.slick-active {
   max-width: 500px;
 }
+
 .artwork-image-lg {
   display: flex;
   // width: 70%;
@@ -182,19 +199,22 @@ h6.info-title {
   position: relative;
   height: 64px;
   align-items: center;
-  border-bottom: 1px solid  rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
   .create-statistic .ant-statistic-content {
     line-height: 22px;
   }
+
   .ant-statistic-content-value {
     font-size: 16px;
     line-height: 25px;
     margin: auto;
   }
+
   .ant-statistic-content-prefix {
     line-height: 16px;
   }
+
   .usd {
     display: flex;
     align-items: flex-end;
@@ -204,27 +224,31 @@ h6.info-title {
   }
 }
 
-.mobile-bid-history{
+.mobile-bid-history {
   display: flex;
   align-items: center;
-  .ant-statistic-content-value,.ant-statistic-content{
+
+  .ant-statistic-content-value, .ant-statistic-content {
     font-size: 16px;
     font-weight: normal;
     line-height: 16px;
   }
-  .bid-info-container{
-    .bidder-info-container{
+
+  .bid-info-container {
+    .bidder-info-container {
       display: flex;
     }
+
     flex: auto;
-    .usd{
+
+    .usd {
       margin-left: 15px;
     }
   }
 }
 
 @media (min-width: 1380px) {
-  .img-cont-500{
+  .img-cont-500 {
     max-width: 550px;
   }
 }

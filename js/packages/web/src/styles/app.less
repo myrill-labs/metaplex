@@ -6,6 +6,7 @@ html {
   width: 100%;
   overflow-x: hidden;
 }
+
 #root {
   height: 100%;
   font-family: 'Graphik Web', sans-serif;
@@ -26,7 +27,7 @@ html {
 body {
   --row-highlight: @background-color-base;
   margin: 0;
-
+  background: #062489 !important;
   font-style: normal;
   font-weight: normal;
   font-family: 'Graphik Web' !important;
@@ -53,9 +54,10 @@ img:not([src]) {
   pointer-events: none;
   width: 100%;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
 .app-logo {
@@ -85,11 +87,13 @@ code {
 .ant-card-cover {
   position: relative;
   overflow: hidden;
+
   .ant-image-img,
   video {
     height: 300px;
     object-fit: cover;
   }
+
   iframe {
     height: 300px;
     object-fit: cover;
@@ -121,6 +125,7 @@ code {
   margin-left: auto;
   margin-right: auto;
 }
+
 .text-uppercase {
   text-transform: uppercase;
 }
@@ -144,6 +149,8 @@ code {
 
 .ant-tabs {
   width: 100%;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .ant-avatar-group .ant-avatar {
@@ -167,6 +174,7 @@ code {
   cursor: pointer;
   margin-left: 10px;
   color: white;
+
   :hover {
     color: @metaplex-primary-color;
   }
@@ -209,21 +217,27 @@ h1 {
   font-weight: 600;
   font-size: 2rem;
 }
-.ant-btn:hover{
+
+.ant-btn:hover {
   background-color: transparent !important;
 }
-.ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
-  color: hsla(0,0%,100%,.85);
+
+.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: hsla(0, 0%, 100%, .85);
 }
-.ant-steps-item-wait>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title {
-  color: hsla(0,0%,100%,.45);
+
+.ant-steps-item-wait > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
+  color: hsla(0, 0%, 100%, .45);
 }
-.ant-steps-item-wait .ant-steps-item-icon>.ant-steps-icon .ant-steps-icon-dot {
-  background: hsla(0,0%,100%,.3);
+
+.ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
+  background: hsla(0, 0%, 100%, .3);
 }
-.ant-card{
-  background: #141414;
+
+.ant-card {
+  background: #14141400;
 }
+
 .ant-card-bordered {
   border: 1px solid #303030;
 }
@@ -231,9 +245,11 @@ h1 {
 .ant-card-meta-title {
   color: rgba(255, 255, 255, 0.85);
 }
+
 .tab-title {
   color: rgba(255, 255, 255, 0.45);
 }
+
 .ant-btn {
   height: 56px;
   font-weight: 600;
@@ -241,6 +257,8 @@ h1 {
   line-height: 16px;
   background-color: transparent !important;
   color: white;
+  z-index: 11;
+
   &.secondary-btn {
     color: @black-100;
     background: @metaplex-primary-color !important;
@@ -275,7 +293,7 @@ model-viewer {
   --poster-color: transparent;
 }
 
-.creator-base-page{
+.creator-base-page {
   @media (max-width: @screen-sm-min) {
     padding: 15px;
   }

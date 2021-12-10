@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Divider, Row } from 'antd';
+import React, {Fragment, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {Button, Col, Divider, Row} from 'antd';
 import BN from 'bn.js';
 
 import Masonry from 'react-masonry-css';
-import { CardLoader } from '../MyLoader';
-import { useMeta } from '../../contexts';
-import { AuctionRenderCard } from '../AuctionRenderCard';
-import { AuctionViewState, useAuctions } from '../../hooks';
+import {CardLoader} from '../MyLoader';
+import {useMeta} from '../../contexts';
+import {AuctionRenderCard} from '../AuctionRenderCard';
+import {AuctionViewState, useAuctions} from '../../hooks';
+import ReactMarkdown from 'react-markdown';
 
 interface Connect {
   label: string;
@@ -44,6 +45,7 @@ interface ArticleSection {
 
 interface MidContent {
   sections: ArticleSection[];
+  markdown: string;
 }
 
 interface LeftContent {
@@ -70,7 +72,7 @@ const cumulativeOffset = (element: HTMLElement) => {
   };
 };
 export const StaticPage = (props: {
-  headContent: HeadContent;
+  // headContent: HeadContent;
   leftContent?: LeftContent;
   midContent: MidContent;
   bottomContent: boolean;
@@ -91,7 +93,7 @@ export const StaticPage = (props: {
     return () => window.removeEventListener('resize', handleResize);
   });
   const auctions = useAuctions(AuctionViewState.Live);
-  const { isLoading } = useMeta();
+  const {isLoading} = useMeta();
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,
@@ -114,14 +116,14 @@ export const StaticPage = (props: {
     >
       {!isLoading
         ? liveAuctions.map((m, idx) => {
-            const id = m.auction.pubkey;
-            return (
-              <Link to={`/auction/${id}`} key={idx}>
-                <AuctionRenderCard key={id} auctionView={m} />
-              </Link>
-            );
-          })
-        : [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+          const id = m.auction.pubkey;
+          return (
+            <Link to={`/auction/${id}`} key={idx}>
+              <AuctionRenderCard key={id} auctionView={m}/>
+            </Link>
+          );
+        })
+        : [...Array(10)].map((_, idx) => <CardLoader key={idx}/>)}
     </Masonry>
   );
 
@@ -163,33 +165,13 @@ export const StaticPage = (props: {
     <section id="header-container">
       {/*<span id="header-gradient"></span>*/}
       <Row>
-        <Col span={24} xl={8} className="header-left">
-          <p className="header-subtitle">{props.headContent.subtitle}</p>
-          <Divider />
-          <p className="header-title">{props.headContent.title}</p>
+        <Col className="header-middle">
 
-          {props.headContent.author && (
-            <div className="author-container">
-              <img
-                src={props.headContent.author.avatar}
-                className="author-avatar"
-                width="32px"
-                height="32px"
-                alt="author image"
-              />
-              <p className="author-name">{props.headContent.author.name}</p>
-            </div>
-          )}
-        </Col>
+          <a href="https://myrill-labs.github.io/whitepaper/">
+            <input type="button" value="Get the white paper" className="gradient-btn" style={{fontSize:'24px', fontWeight:100}}/>
+          </a>
 
-        <Col xl={16} span={24} className="header-right">
-          <img
-            src={props.headContent.bannerImage}
-            className="header-image"
-            width="880px"
-            height="620px"
-            alt={`${props.headContent.title} image`}
-          />
+
         </Col>
       </Row>
     </section>
@@ -224,44 +206,16 @@ export const StaticPage = (props: {
       </div>
     </section>
   );
-  const middleSection = (
-    <section id="middle-container">
-      {props.midContent.sections.map((section, i) => (
-        <div key={i} className="mid-section-item">
-          {section.title && <span className="mid-title">{section.title}</span>}
-          {section.paragraphs?.map(paragraph => (
-            <p className="paragraph-text">{paragraph}</p>
-          ))}
-
-          {section.image && (
-            <img
-              src={section.image}
-              className="image"
-              width="720px"
-              height="450px"
-              alt={`${section.title} image`}
-            />
-          )}
-
-          {section.caption && (
-            <p className="image-caption">
-              {section.caption.text}
-              <a href={section.caption.linkUrl} target="_blank">
-                {section.caption.linkText}
-              </a>
-            </p>
-          )}
-        </div>
-      ))}
-    </section>
-  );
   const rightSection = <section id="right-container"></section>;
   const finalSection = (
     <section id="bottom-container">
-      <p className="bottom-title">Shop the Collection</p>
-      {liveAuctionsView}
+      {/*<p className="bottom-title">Shop the Collection</p>*/}
+      {/*{liveAuctionsView}*/}
     </section>
   );
+
+  const markdown = props.midContent.markdown;
+
 
   return (
     <Fragment>
@@ -271,7 +225,9 @@ export const StaticPage = (props: {
           {leftSection}
         </Col>
         <Col xs={24} md={16}>
-          {middleSection}
+          <div className="middle-background">
+            <ReactMarkdown className="paragraph-text" children={markdown}/>
+          </div>
         </Col>
         <Col xs={24} md={4}>
           {rightSection}
