@@ -57,7 +57,7 @@ export const MetaplexMenu = () => {
     return (
       <>
         <Modal
-          title={<img src={'/myrill-logo.svg'}/>}
+          title={<img style= {{maxHeight:"32px"}} src={'/myrill-logo.svg'}/>}
           visible={isModalVisible}
           footer={null}
           className={'modal-box'}
