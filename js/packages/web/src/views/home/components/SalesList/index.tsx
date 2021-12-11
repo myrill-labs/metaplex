@@ -39,34 +39,34 @@ export const SalesListView = () => {
       <Layout>
         <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
           <Col style={{ width: '100%', marginTop: 32 }}>
-            <Row>
-              <Tabs
-                activeKey={activeKey}
-                onTabClick={key => setActiveKey(key as LiveAuctionViewState)}
-              >
-                <TabPane
-                  tab={
-                    <>
-                      <span className="live"></span> Live
-                    </>
-                  }
-                  key={LiveAuctionViewState.All}
-                ></TabPane>
-                {hasResaleAuctions && (
-                  <TabPane
-                    tab="Secondary Marketplace"
-                    key={LiveAuctionViewState.Resale}
-                  ></TabPane>
-                )}
-                <TabPane tab="Ended" key={LiveAuctionViewState.Ended}></TabPane>
-                {connected && (
-                  <TabPane
-                    tab="Participated"
-                    key={LiveAuctionViewState.Participated}
-                  ></TabPane>
-                )}
-              </Tabs>
-            </Row>
+            {/*<Row>*/}
+            {/*  <Tabs*/}
+            {/*    activeKey={activeKey}*/}
+            {/*    onTabClick={key => setActiveKey(key as LiveAuctionViewState)}*/}
+            {/*  >*/}
+            {/*    <TabPane*/}
+            {/*      tab={*/}
+            {/*        <>*/}
+            {/*          <span className="live"></span> Live*/}
+            {/*        </>*/}
+            {/*      }*/}
+            {/*      key={LiveAuctionViewState.All}*/}
+            {/*    ></TabPane>*/}
+            {/*    {hasResaleAuctions && (*/}
+            {/*      <TabPane*/}
+            {/*        tab="Secondary Marketplace"*/}
+            {/*        key={LiveAuctionViewState.Resale}*/}
+            {/*      ></TabPane>*/}
+            {/*    )}*/}
+            {/*    <TabPane tab="Ended" key={LiveAuctionViewState.Ended}></TabPane>*/}
+            {/*    {connected && (*/}
+            {/*      <TabPane*/}
+            {/*        tab="Participated"*/}
+            {/*        key={LiveAuctionViewState.Participated}*/}
+            {/*      ></TabPane>*/}
+            {/*    )}*/}
+            {/*  </Tabs>*/}
+            {/*</Row>*/}
             <Row>
               <div className="artwork-grid">
                 {isLoading &&

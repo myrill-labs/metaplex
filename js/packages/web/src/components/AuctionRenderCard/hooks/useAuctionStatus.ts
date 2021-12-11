@@ -34,8 +34,7 @@ export const useAuctionStatus = (
       ? auctionView.auction.info.priceFloor.minPrice?.toNumber() || 0
       : 0;
 
-  // let status = 'Starting Bid';
-  let status = '...';
+  let status = 'Price';
 
   let amount: string | number = fromLamports(
     participationOnly ? participationFixedPrice : priceFloor,
