@@ -116,7 +116,7 @@ export const MetaplexMenu = () => {
 export const LogoLink = () => {
   return (
     <Link to={`/`}>
-      <img className="myrill-logo" src={'/myrill-logo.svg'}/>
+      <img style={{maxHeight:"32px"}} src={'/myrill-logo.svg'}/>
     </Link>
   );
 };
