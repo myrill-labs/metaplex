@@ -25,22 +25,22 @@ export default class MetaplexDocument extends Document {
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href="/favicon-32x32.png"
+            href="/myrill-favicon-32x32.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="96x96"
-            href="/favicon-96x96.png"
+            href="/myrill-favicon-96x96.png"
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href="/favicon-16x16.png"
+            href="/myrill-favicon-16x16.png"
           />
           <meta name="theme-color" content="#000000" />
-          <meta name="description" content="Metaplex NFT Marketplace" />
+          <meta name="description" content="Myrill NFT Marketplace" />
           <link rel="manifest" href="/manifest.json" />
           <link
             rel="stylesheet"
