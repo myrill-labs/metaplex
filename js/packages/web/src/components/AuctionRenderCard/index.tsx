@@ -27,15 +27,15 @@ export const AuctionRenderCard = (props: AuctionCard) => {
     <Card hoverable={true} className={`auction-render-card`} bordered={false}>
       <div className={'card-art-info'}>
         <div className="auction-gray-wrapper">
-          <div className={'card-artist-info'}>
-            <MetaAvatar creators={creators.length ? [creators[0]] : undefined} />
-            <span className={'artist-name'}>
-              {creators[0]?.name ||
-                creators[0]?.address?.substr(0, 6) ||
-                'Go to auction'}
-              ...
-            </span>
-          </div>
+          {/*<div className={'card-artist-info'}>*/}
+          {/*  <MetaAvatar creators={creators.length ? [creators[0]] : undefined} />*/}
+          {/*  <span className={'artist-name'}>*/}
+          {/*    {creators[0]?.name ||*/}
+          {/*      creators[0]?.address?.substr(0, 6) ||*/}
+          {/*      'Go to auction'}*/}
+          {/*    ...*/}
+          {/*  </span>*/}
+          {/*</div>*/}
           <div className={'art-content-wrapper'}>
             <ArtContent
               className="auction-image no-events"
@@ -45,14 +45,14 @@ export const AuctionRenderCard = (props: AuctionCard) => {
             />
           </div>
           <div className={'art-name'}>{name}</div>
-          <div className="auction-info-container">
-            <div className={'info-message'}>ENDING IN</div>
-            <AuctionCountdown auctionView={auctionView} labels={false} />
-          </div>
+          {/*<div className="auction-info-container">*/}
+            {/*<div className={'info-message'}>ENDING IN</div>*/}
+            {/*<AuctionCountdown auctionView={auctionView} labels={false} />*/}
+          {/*</div>*/}
         </div>
       </div>
       <div className="card-bid-info">
-        <span className={'text-uppercase info-message'}>{status}</span>
+        {/*<span className={'text-uppercase info-message'}>{status}</span>*/}
         <AmountLabel
           containerStyle={{ flexDirection: 'row' }}
           title={status}
