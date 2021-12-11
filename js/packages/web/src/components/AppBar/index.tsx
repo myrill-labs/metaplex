@@ -25,6 +25,12 @@ const getDefaultLinkActions = (connected: boolean) => {
     <Link to={`/artists`} key={'artists'}>
       <Button className="app-btn">Creators</Button>
     </Link>,
+    <a target="_blank" rel="noopener noreferrer" href={"https://myrill.io/whitepaper"}>
+      <Button  className="app-btn">Whitepaper</Button>
+    </a>,
+     <a target="_blank" rel="noopener noreferrer" href={"https://myrill.io/club"}>
+      <Button  className="app-btn">Myrill Club</Button>
+    </a>,
   ];
 };
 
@@ -51,7 +57,7 @@ export const MetaplexMenu = () => {
     return (
       <>
         <Modal
-          title={<img src={'/metaplex-logo.svg'} />}
+          title={<img src={'/myrill-logo.svg'}/>}
           visible={isModalVisible}
           footer={null}
           className={'modal-box'}
@@ -110,7 +116,7 @@ export const MetaplexMenu = () => {
 export const LogoLink = () => {
   return (
     <Link to={`/`}>
-      <img src={'/metaplex-logo.svg'} />
+      <img className="myrill-logo" src={'/myrill-logo.svg'}/>
     </Link>
   );
 };

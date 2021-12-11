@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import { readFile } from 'fs/promises';
 import path from 'path';
@@ -94,7 +93,6 @@ function getAssetManifest(dirname: string, assetKey: string): Manifest {
   const manifestPath = path.join(dirname, `${assetKey}.json`);
   return JSON.parse(fs.readFileSync(manifestPath).toString());
 }
-
 
 /**
  * Initialize & deploy the Candy Machine Custom Program's configuration,
