@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 
 import { useMeta } from '../../../../contexts';
 import { CardLoader } from '../../../../components/MyLoader';
-import { Banner } from '../../../../components/Banner';
-import { HowToBuyModal } from '../../../../components/HowToBuyModal';
+// import { Banner } from '../../../../components/Banner';
+// import { HowToBuyModal } from '../../../../components/HowToBuyModal';
 
 import { useAuctionsList } from './hooks/useAuctionsList';
 import { AuctionRenderCard } from '../../../../components/AuctionRenderCard';
@@ -29,13 +29,13 @@ export const SalesListView = () => {
 
   return (
     <>
-      <Banner
-        src="/myrill-main-banner.png"
-        headingText="The amazing world of Metaplex."
-        subHeadingText="Buy exclusive Metaplex NFTs."
-        actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}
-        useBannerBg
-      />
+      {/*<Banner*/}
+      {/*  src="/myrill-main-banner.png"*/}
+      {/*  headingText="Myrill.io Store"*/}
+      {/*  subHeadingText="Buy club membership NFTs."*/}
+      {/*  actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}*/}
+      {/*  useBannerBg*/}
+      {/*/>*/}
       <Layout>
         <Content style={{ display: 'flex', flexWrap: 'wrap' }}>
           <Col style={{ width: '100%', marginTop: 32 }}>
