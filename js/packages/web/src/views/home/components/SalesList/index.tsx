@@ -37,7 +37,7 @@ export const SalesListView = () => {
         You can consult <a href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
         "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the status of the sales.
 
-        If you want to purchase on mobile, you will need a mobile compatible wallet. Solfare is realising one soon.
+        If you want to purchase on mobile, you will need a mobile compatible wallet. Solfare is releasing one soon.
       </div>
       {/*<Banner*/}
       {/*  src="/myrill-main-banner.png"*/}
