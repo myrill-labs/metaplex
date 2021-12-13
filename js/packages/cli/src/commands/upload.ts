@@ -90,7 +90,10 @@ function getAssetKeysNeedingUpload(
  * or do not truthy value for the `link` property.
  */
 function getAssetManifest(dirname: string, assetKey: string): Manifest {
-  const manifestPath = path.join(dirname, `${assetKey}.json`);
+  const manifestPath = path.join(
+    dirname,
+    assetKey.includes('json') ? assetKey : `${assetKey}.json`,
+  );
   return JSON.parse(fs.readFileSync(manifestPath).toString());
 }
 
@@ -361,7 +364,9 @@ export async function upload({
               );
               const manifest = getAssetManifest(
                 dirname,
-                `${assetKey.index}.json`,
+                assetKey.index.includes('json')
+                  ? assetKey.index
+                  : `${assetKey.index}.json`,
               );
               const manifestBuffer = Buffer.from(JSON.stringify(manifest));
               if (i >= lastPrinted + tick || i === 0) {
