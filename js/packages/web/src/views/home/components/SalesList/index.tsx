@@ -68,13 +68,13 @@ export const SalesListView = () => {
                     key={LiveAuctionViewState.Resale}
                   ></TabPane>
                 )}
-                {/*<TabPane tab="Ended" key={LiveAuctionViewState.Ended}></TabPane>*/}
-                {/*{connected && (*/}
-                {/*  <TabPane*/}
-                {/*    tab="Participated"*/}
-                {/*    key={LiveAuctionViewState.Participated}*/}
-                {/*  ></TabPane>*/}
-                {/*)}*/}
+                <TabPane tab="Ended" key={LiveAuctionViewState.Ended}></TabPane>
+                {connected && (
+                  <TabPane
+                    tab="Participated"
+                    key={LiveAuctionViewState.Participated}
+                  ></TabPane>
+                )}
               </Tabs>
             </Row>
             <Row>
