@@ -29,16 +29,16 @@ export const SalesListView = () => {
 
   return (
     <>
-      <div style={{backgroundColor: 'rgba(100, 100, 100, 0.01)', fontFamily:'Montserrat', fontSize: '18px', margin: '5%'}}>
-          Welcome to the Myrill NFT Marketplace. Here are listed Club memberships.
-        If you want to purchase multiples memberships,
-        contact us on <a href={"https://discord.gg/UQudVUA3KE"}>discord</a>.
-
-        You can consult <a href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
-        "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the status of the sales.
-
+      <div
+        style={{backgroundColor: 'rgba(255, 255, 0, 0.8)', color: "black", fontFamily: 'Montserrat', fontSize: '20px', margin: "1%"}}>
+        Here are listed 2 memberships. You can buy them here but in order to avoid any bug, please contact us on <a
+        style={{color: "red"}} href={"https://discord.gg/UQudVUA3KE"}>discord</a>.
+        We will proceed a direct exchange from wallet to wallet.
+        You can consult <a style={{color: "red"}} href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
+      "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the status of the sales.
         If you want to purchase on mobile, you will need a mobile compatible wallet. Solfare is releasing one soon.
       </div>
+
       {/*<Banner*/}
       {/*  src="/myrill-main-banner.png"*/}
       {/*  headingText="Myrill.io Store"*/}
