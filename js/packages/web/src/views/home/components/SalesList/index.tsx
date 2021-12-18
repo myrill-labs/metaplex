@@ -63,17 +63,21 @@ export const SalesListView = () => {
                 activeKey={activeKey}
                 onTabClick={key => setActiveKey(key as LiveAuctionViewState)}
               >
-                <TabPane
-                  tab={
-                    <>
-                      <span className="live"></span> Live
-                    </>
-                  }
-                  key={LiveAuctionViewState.All}
-                ></TabPane>
+                {/*<TabPane*/}
+                {/*  tab={*/}
+                {/*    <>*/}
+                {/*      <span className="live"></span> Live*/}
+                {/*    </>*/}
+                {/*  }*/}
+                {/*  key={LiveAuctionViewState.All}*/}
+                {/*></TabPane>*/}
                 {hasResaleAuctions && (
                   <TabPane
-                    tab="Secondary Marketplace"
+                    tab={
+                      <>
+                      <span className="live"></span> Secondary Marketplace
+                    </>
+                    }
                     key={LiveAuctionViewState.Resale}
                   ></TabPane>
                 )}
