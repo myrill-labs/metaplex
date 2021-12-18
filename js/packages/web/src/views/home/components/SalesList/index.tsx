@@ -22,7 +22,7 @@ export enum LiveAuctionViewState {
 }
 
 export const SalesListView = () => {
-  const [activeKey, setActiveKey] = useState(LiveAuctionViewState.All);
+  const [activeKey, setActiveKey] = useState(LiveAuctionViewState.Resale);
   const {isLoading} = useMeta();
   const {connected} = useWallet();
   const {auctions, hasResaleAuctions} = useAuctionsList(activeKey);
@@ -41,9 +41,11 @@ export const SalesListView = () => {
 
         <div style={{"margin": "20px"}}>
 
-          Welcome to the Myrill's Marketplace, where you can buy and resell memberships. If you prefer to buy from
-          Myrill at fixed
-          price (5 SOL), please check <a href={"https://nft.myrill.io"}> this page</a>. We have issued 900 memberships
+          Welcome to the Myrill's Marketplace, where you can buy and resell memberships.
+
+          <div style={{"height": "30px"}}></div>
+          The sales you see below are secondary sales. If you wanna purchase a membership at a fixed price of 5 SOL,
+          please visit <a href={"https://nft.myrill.io"}> this page</a>. We have issued 900 memberships
           at 5
           SOL. No more
           will be issued.
@@ -51,14 +53,14 @@ export const SalesListView = () => {
           <div style={{"height": "30px"}}></div>
 
           The 100 first memberships (priced 1 SOL) have been sold out!
-          You can consult <a style={{color: "red"}} href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
+          You can consult <a  href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
         "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the list of sales.
 
 
           <div style={{"height": "30px"}}></div>
 
 
-          Join the <a style={{color: "red"}} href={"https://discord.gg/UQudVUA3KE"}>discord</a> to stay tuned!
+          Join the <a href={"https://discord.gg/UQudVUA3KE"}>discord</a> to stay tuned!
         </div>
       </div>
 
@@ -77,24 +79,15 @@ export const SalesListView = () => {
                 activeKey={activeKey}
                 onTabClick={key => setActiveKey(key as LiveAuctionViewState)}
               >
-                {/*<TabPane*/}
-                {/*  tab={*/}
-                {/*    <>*/}
-                {/*      <span className="live"></span> Live*/}
-                {/*    </>*/}
-                {/*  }*/}
-                {/*  key={LiveAuctionViewState.All}*/}
-                {/*></TabPane>*/}
-                {hasResaleAuctions && (
-                  <TabPane
-                    tab={
-                      <>
-                        <span className="live"></span> Secondary Marketplace
-                      </>
-                    }
-                    key={LiveAuctionViewState.Resale}
-                  ></TabPane>
-                )}
+                <TabPane
+                  tab={
+                    <>
+                      <span className="live"></span> Live
+                    </>
+                  }
+                  key={LiveAuctionViewState.Resale}
+                ></TabPane>
+
                 <TabPane tab="Ended" key={LiveAuctionViewState.Ended}></TabPane>
                 {connected && (
                   <TabPane
