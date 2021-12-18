@@ -1,6 +1,6 @@
 {
-  "price": 0.01,
-  "number": 3,
+  "price": 2,
+  "number": 50,
   "gatekeeper": {
     "gatekeeperNetwork": "ignREusXmGrscGNUesoU9mxfds9AiYTezUKex2PsZV6",
     "expireOnUse": true
@@ -17,5 +17,5 @@
   "ipfsInfuraSecret": null,
   "awsS3Bucket": null,
   "noRetainAuthority": false,
-  "noMutable": false
+  "noMutable": true
 }

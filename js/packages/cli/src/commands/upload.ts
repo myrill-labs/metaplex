@@ -761,6 +761,7 @@ export async function upload({
               const manifestBuffer = Buffer.from(JSON.stringify(manifest));
               if (i >= lastPrinted + tick || i === 0) {
                 lastPrinted = i;
+                log.info(i);
                 log.info(`Processing asset: ${assetKey}`);
               }
 
