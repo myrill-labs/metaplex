@@ -31,21 +31,35 @@ export const SalesListView = () => {
     <>
       <div
         style={{
-          backgroundColor: 'rgba(255, 255, 0, 0.8)',
-          color: "black",
+          backgroundColor: 'rgba(0, 0, 255, 0.3)',
+          color: "white",
           fontFamily: 'Montserrat',
           fontSize: '20px',
-          margin: "1%"
+          margin: "1%",
+          borderRadius: "25px"
         }}>
-        The 100 first memberships (priced 1 SOL) have been sold out!
-        You can consult <a style={{color: "red"}} href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
-      "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the list of sales.
 
-        <br/>
-        <br/>
+        <div style={{"margin": "20px"}}>
 
-        We are going to release the next 900 NFTs very soon. Join the <a style={{color: "red"}} href={"https://discord.gg/UQudVUA3KE"}>discord</a> to stay tuned!
+          Welcome to the Myrill's Marketplace, where you can buy and resell memberships. If you prefer to buy from
+          Myrill at fixed
+          price (5 SOL), please check <a href={"https://nft.myrill.io"}> this page</a>. We have issued 900 memberships
+          at 5
+          SOL. No more
+          will be issued.
 
+          <div style={{"height": "30px"}}></div>
+
+          The 100 first memberships (priced 1 SOL) have been sold out!
+          You can consult <a style={{color: "red"}} href={"https://docs.google.com/spreadsheets/d/1WQ_7eOxxE" +
+        "pOb23kSNxaOb-OtklSlNPMxJnn3HoVKO4g/edit#gid=0"}>here</a> the list of sales.
+
+
+          <div style={{"height": "30px"}}></div>
+
+
+          Join the <a style={{color: "red"}} href={"https://discord.gg/UQudVUA3KE"}>discord</a> to stay tuned!
+        </div>
       </div>
 
       {/*<Banner*/}
@@ -75,8 +89,8 @@ export const SalesListView = () => {
                   <TabPane
                     tab={
                       <>
-                      <span className="live"></span> Secondary Marketplace
-                    </>
+                        <span className="live"></span> Secondary Marketplace
+                      </>
                     }
                     key={LiveAuctionViewState.Resale}
                   ></TabPane>
