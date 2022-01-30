@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 
 import { AppBar } from '../AppBar';
 import { Footer } from '../Footer';
-import Particles from "react-particles-js";
+// import Particles from "react-particles-js";
 
 const { Header, Content } = Layout;
 
@@ -19,7 +19,7 @@ export const AppLayout = React.memo((props: any) => {
           <AppBar />
         </Header>
         <Layout id={'width-layout'}>
-          <Particles/>
+          {/*<Particles/>*/}
           <Content
             style={{
               overflow: 'scroll',
