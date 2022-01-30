@@ -1,25 +1,22 @@
 import React from 'react';
-import { Layout } from 'antd';
+import {Layout} from 'antd';
 
-import { AppBar } from '../AppBar';
-import { Footer } from '../Footer';
+import {AppBar} from '../AppBar';
+import {Footer} from '../Footer';
 // import Particles from "react-particles-js";
 
-const { Header, Content } = Layout;
+const {Header, Content} = Layout;
 
 export const AppLayout = React.memo((props: any) => {
   return (
     <>
       <Layout id={'main-layout'}>
-        <span id={'main-bg'}></span>
-        <span id={'bg-gradient'}></span>
-        <span id={'static-header-gradient'}></span>
-        <span id={'static-end-gradient'}></span>
-        <Header className="App-Bar">
-          <AppBar />
-        </Header>
+        <span id={'main-bg'}/>
+        <span id={'bg-gradient'}/>
+        <span id={'static-header-gradient'}/>
+        <span id={'static-end-gradient'}/>
+        <AppBar/>
         <Layout id={'width-layout'}>
-          {/*<Particles/>*/}
           <Content
             style={{
               overflow: 'scroll',
@@ -29,7 +26,7 @@ export const AppLayout = React.memo((props: any) => {
             {props.children}
           </Content>
         </Layout>
-        <Footer />
+        {/*<Footer/>*/}
       </Layout>
     </>
   );
